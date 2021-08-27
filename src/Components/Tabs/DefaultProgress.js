@@ -12,12 +12,12 @@ const DefaultProgress = () => {
         setPolls
     } = useContext(VroomContext);
     
-    const progress = [{question: "q1", students: ["amy", "bob"], value: 90}]
+    const progress = [{question: "q1", students: ["amy", "bob"], value: 90},  {question: "q2", students: ["caro", "db"], value: 90}]
 
     const refresh = () => {
         // refresh button 
     }
-    
+
     return (
         <div>
             <div>
@@ -26,6 +26,7 @@ const DefaultProgress = () => {
                 <BarObject question=" " activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
             </div>
             <div className="students"> 
+                {showStudents && <h4>Students</h4>}
                 <ListGroup>
                     {showStudents && progress[activeIndex].students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
