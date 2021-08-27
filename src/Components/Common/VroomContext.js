@@ -9,6 +9,8 @@ export const VroomContextProvider = (props) => {
     const [currentPoll, setCurrentPoll] = useState("");
     const [polls, setPolls] = useState([{name: "Poll 1"},{name: "Poll 2"}, {name: "Poll 3"} ])
     const [lessonPlan, setLessonPlan] = useState({title: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
+    const [lessonPlanPage, setLessonPlanPage] = useState("build");
+
 
     return (
         <VroomContext.Provider
@@ -23,6 +25,9 @@ export const VroomContextProvider = (props) => {
                 setCurrentPoll,
                 lessonPlan,
                 setLessonPlan,
+                lessonPlanPage,
+                setLessonPlanPage,
+
             }}
         >
             {props.children}
