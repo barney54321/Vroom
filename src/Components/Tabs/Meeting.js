@@ -6,9 +6,9 @@ const Commands = () => {
     }
     return (
         <div>
-            <form onSubmit={submitForm}>
+            <form onSubmit={launch}>
                 <label>URL of the zoom meeting</label>
-                <input type="text" placeholder="https://"></input>
+                <input type="text" placeholder="https://zoom.example..."></input>
                 <label>!attend</label>
                 <input type="text" placeholder="Write your message here"></input>
                 <button type="submit">Save</button>

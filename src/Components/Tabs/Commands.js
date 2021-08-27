@@ -9,9 +9,9 @@ const Commands = () => {
             <form onSubmit={submitForm}>
                 <label>!now</label>
                 <input type="text" placeholder="Write your message here"></input>
-                <label>!attend</label>
-                <input type="text" placeholder="Write your message here"></input>
-                <button type="submit">Save</button>
+                <label>Your zoom name</label>
+                <input type="text" placeholder="Your exact zoom name"></input>
+                <button type="submit">Launch</button>
             </form>
         </div>
     )
