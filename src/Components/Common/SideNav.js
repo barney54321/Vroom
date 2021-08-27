@@ -56,7 +56,6 @@ const SideNav = (props) => {
                             <DefaultProgress />
                         </TabPane>
                         <TabPane eventKey="third">
-                            <BarObject />
                             <DefaultPollPage />
                         </TabPane>
                         <TabPane eventKey="fourth">

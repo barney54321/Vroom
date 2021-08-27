@@ -44,6 +44,7 @@ const BuildLessonPlan = (props) => {
         console.log(index)
         console.log("length", copy.length)
         copy.splice(index, 1);
+        console.log(copy)
         setSections(copy);
     }
 
@@ -76,7 +77,7 @@ const BuildLessonPlan = (props) => {
                     </div>
                     <div className="mt-4">
                         {sections.map((section, index) => (
-                            <div className="d-flex flex-column" key={"overall"+index+section}>
+                            <div className="d-flex flex-column" key={"overall"+index+section.title}>
                                 <div className="d-flex">
                                     <Form.Label className="mb-1">Section Title</Form.Label>
                                     <Form.Control
