@@ -25,6 +25,52 @@ app.post("/join", (req, res) => {
     res.sendStatus(200);
 });
 
+/*
+    LEAVE - POST
+    No request body
+    Returns 200 on success, 400 on failure
+*/
+app.post("/leave", (req, res) => {
+    res.sendStatus(200);
+});
+
+/*
+    EDITNAME - POST
+    Send JSON body with new name: {name: "Vroom"}
+    Returns 200 on success, 400 on failure
+*/
+app.post("/editname", (req, res) => {
+    let body = req.body;
+    let name = body.name;
+    console.log(name);
+    res.sendStatus(200);
+});
+
+/*
+    GETPROGRESS - GET
+    Returns progress of students: {questions: [{question: 1, names: ["Name 1", "Name 2"]}, {question: 2, names: ["Name 3"]}]}
+*/
+app.get("/getprogress", (req, res) => {
+    let obj = {
+        questions: [
+            {
+                question: 1,
+                names: [
+                    "Name 1",
+                    "Name 2"
+                ]
+            },
+            {
+                question: 2,
+                names: [
+                    "Name 3"
+                ]
+            }
+        ]
+    };
+    res.send(obj);
+});
+
 app.listen(port, () => {
     console.log("Listening on port " + port);
 });
