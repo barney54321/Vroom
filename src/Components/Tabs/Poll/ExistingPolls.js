@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import ExistingPoll from './ExistingPoll'
 import { ListGroup } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
 
 import { VroomContext } from '../../Common/VroomContext';
 
@@ -14,16 +15,23 @@ const ExistingPolls = (props) => {
     const deletePoll = (index) => {
         const copy = [...polls];
         copy.splice(index, 1);
-        props.setPolls(copy);
+        setPolls(copy);
+    }
+    
+    const addPoll = () => {
+        console.log("add poll clicked");
+        
     }
 
     return (
         <div>
+            <h4>Existing Polls</h4>
             <ListGroup defaultActiveKey="">
-
-            {polls.map((poll) => (<ExistingPoll key={polls.id} poll={poll}/>))}
+           
+            {polls.map((poll, index) => (<ExistingPoll key={index} poll={poll} index={index} deletePoll={deletePoll}/>))}
         
             </ListGroup>
+            <Button variant="primary" onClick={addPoll}>Add Poll</Button>
         </div>
     )
 }
