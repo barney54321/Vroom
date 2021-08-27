@@ -1,5 +1,7 @@
 import './App.css';
-import Page from './Page';
+import Page from './Components/Page';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
