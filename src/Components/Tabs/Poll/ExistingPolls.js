@@ -1,9 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import ExistingPoll from './ExistingPoll'
 import { ListGroup } from 'react-bootstrap'
+
+import { VroomContext } from '../../Common/VroomContext';
+
 const ExistingPolls = (props) => {
-    // const polls = [{id: 1, description: "Poll 1"}]
-    const polls = props.polls;
+
+    const {
+        polls,
+        setPolls,
+    } = useContext(VroomContext);
     
     const deletePoll = (index) => {
         const copy = [...polls];
