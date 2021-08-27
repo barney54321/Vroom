@@ -48,6 +48,7 @@ const ViewPoll = () => {
                 <BarObject values={values} votes={votes} question={question} activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
             </div>
             <div className="students"> 
+                {showStudentsForPoll && <h4>Students</h4>}
                 <ListGroup>
                     {showStudentsForPoll && poll[activeIndex].students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
