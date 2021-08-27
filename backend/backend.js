@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const {Dummy} = require("./dummy");
 
 const port = 8000;
 
@@ -8,20 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Hello world");
-});
+var zoom;
+
+zoom = new Dummy();
 
 /*
     JOIN - POST
     Send JSON body with url and name: {url: "zoom.com", name: "Teaching Assistant"}
     Returns 200 on success, 400 on failure
 */
-app.post("/join", (req, res) => {
+app.post("/join", async (req, res) => {
     let body = req.body;
     let url = body.url;
     let name = body.name;
-    console.log(url + " " + name);
+    zoom = await zoom.init(url, name);
     res.sendStatus(200);
 });
 
@@ -30,7 +31,8 @@ app.post("/join", (req, res) => {
     No request body
     Returns 200 on success, 400 on failure
 */
-app.post("/leave", (req, res) => {
+app.post("/leave", async (req, res) => {
+    await zoom.leave();
     res.sendStatus(200);
 });
 
@@ -39,10 +41,10 @@ app.post("/leave", (req, res) => {
     Send JSON body with new name: {name: "Vroom"}
     Returns 200 on success, 400 on failure
 */
-app.post("/editname", (req, res) => {
+app.post("/editname", async (req, res) => {
     let body = req.body;
     let name = body.name;
-    console.log(name);
+    await zoom.editName(name);
     res.sendStatus(200);
 });
 
@@ -50,25 +52,9 @@ app.post("/editname", (req, res) => {
     GETPROGRESS - GET
     Returns progress of students: {questions: [{question: 1, names: ["Name 1", "Name 2"]}, {question: 2, names: ["Name 3"]}]}
 */
-app.get("/getprogress", (req, res) => {
-    let obj = {
-        questions: [
-            {
-                question: 1,
-                names: [
-                    "Name 1",
-                    "Name 2"
-                ]
-            },
-            {
-                question: 2,
-                names: [
-                    "Name 3"
-                ]
-            }
-        ]
-    };
-    res.send(obj);
+app.get("/getprogress", async (req, res) => {
+    let progress = await zoom.getProgress();
+    res.send(progress);
 });
 
 /*
@@ -76,11 +62,11 @@ app.get("/getprogress", (req, res) => {
     Send JSON body with question and options: {question: "1+1=2", options: ["True", "False"]}
     Returns 200 on success, 400 on failure
 */
-app.post("/launchpoll", (req, res) => {
+app.post("/launchpoll", async (req, res) => {
     let body = req.body;
     let question = body.question;
     let options = body.options;
-    console.log(question + " " + options);
+    await zoom.launchPoll(question, options);
     res.sendStatus(200);
 });
 
@@ -88,25 +74,9 @@ app.post("/launchpoll", (req, res) => {
     RESULTS - GET
     Returns results from students: {options: [{option: "True", names: ["Student A", "Student B"]}, {option: "False", names: ["Student C"]}]}
 */
-app.get("/results", (req, res) => {
-    let obj = {
-        options: [
-            {
-                option: "True",
-                names: [
-                    "Student A",
-                    "Student B"
-                ]
-            },
-            {
-                option: "False",
-                names: [
-                    "Student C"
-                ]
-            }
-        ]
-    };
-    res.send(obj);
+app.get("/results", async (req, res) => {
+    let results = await zoom.getResults();
+    res.send(results);
 });
 
 /*
@@ -114,25 +84,9 @@ app.get("/results", (req, res) => {
     No body required
     Returns results in same format as /RESULTS
 */
-app.post("/closepoll", (req, res) => {
-    let obj = {
-        options: [
-            {
-                option: "True",
-                names: [
-                    "Student A",
-                    "Student B"
-                ]
-            },
-            {
-                option: "False",
-                names: [
-                    "Student C"
-                ]
-            }
-        ]
-    };
-    res.send(obj);
+app.post("/closepoll", async (req, res) => {
+    let results = await zoom.closePoll();
+    res.send(results);
 });
 
 /*
@@ -140,10 +94,10 @@ app.post("/closepoll", (req, res) => {
     Send JSON body with sections: {sections: [{sectionTitle: "Revision", sectionTime: 10, sectionDesc: "Revision for last week"}]}
     Returns 200 on success, 400 on failure
 */
-app.post("/startplan", (req, res) => {
+app.post("/startplan", async (req, res) => {
     let body = req.body;
     let sections = body.sections;
-    console.log(sections);
+    await zoom.startPlan(sections);
     res.sendStatus(200);
 });
 
@@ -152,8 +106,8 @@ app.post("/startplan", (req, res) => {
     No body required
     Returns 200 on success, 400 on failure
 */
-app.post("/stopplan", (req, res) => {
-    console.log("Ended plan");
+app.post("/stopplan", async (req, res) => {
+    await zoom.stopPlan();
     res.sendStatus(200);
 });
 
@@ -162,10 +116,10 @@ app.post("/stopplan", (req, res) => {
     Send JSON body with new commands: {commands: [{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}]}
     Returns 200 on success, 400 on failure
 */
-app.post("/updatecommands", (req, res) => {
+app.post("/updatecommands", async (req, res) => {
     let body = req.body;
     let commands = body.commands;
-    console.log(commands);
+    await zoom.updateCommands(commands);
     res.sendStatus(200);
 });
 
