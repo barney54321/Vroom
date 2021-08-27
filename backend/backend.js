@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const {Dummy} = require("./dummy");
+const {Zoom} = require("./zoom");
+const args = process.argv[2];
 
 const port = 8000;
 
@@ -11,7 +13,12 @@ app.use(express.json());
 
 var zoom;
 
-zoom = new Dummy();
+if (args === "test") {
+    zoom = new Dummy();
+} else {
+    zoom = new Zoom();
+}
+
 
 /*
     JOIN - POST
