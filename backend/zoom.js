@@ -2,6 +2,7 @@ require("chromedriver");
 const webdriver = require("selenium-webdriver");
 const { By } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
+var Mutex = require('async-mutex').Mutex; 
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -13,6 +14,7 @@ class Zoom {
 
     constructor() {
         this.run = true;
+        this.messageIDs = [];
     }
     
     async init(link, name) {
@@ -172,6 +174,7 @@ class Zoom {
     }
 
     async sendMessage(receiver, message) {
+        console.log("RECEIVER: " + receiver);
         await this.recipientButton.click();
 
         // Get scrollbar
@@ -190,11 +193,11 @@ class Zoom {
             await recipientList[1].click();
         } else {
             // Find person in list
-            for (let i = 2; i < recipientList.length; i++) {
+            for (let i = 1; i < recipientList.length; i++) {
                 let recipient = recipientList[i];
                 let text = await recipient.getText();
 
-                if (text === receiver) {
+                if (text.replace("(Host)", "") === receiver) {
                     await recipient.click();
                     break;
                 }
@@ -279,28 +282,52 @@ class Zoom {
         console.log("Monitoring chat");
 
         while (this.run) {
-            let messages = await this.readMessages();
-            console.log(messages);
+            await this.processMessages();
             await sleep(1000);
         }
+    }
+
+    async processMessages() {
+        let newMessages = await this.readMessages();
+
+        for (let i = 0; i < newMessages.length; i++) {
+            // Using dodgy method to overcome weird memory issues
+            let message = JSON.parse(JSON.stringify(newMessages[i]));
+
+            if (this.messageIDs.includes(message.id)) {
+                continue;
+            }
+
+            this.messageIDs.push(message.id);
+
+            console.log(message);
+
+            if (message.sender !== "Me") {
+                await this.handleMessage(message);
+            }
+        }
+    }
+
+    async handleMessage(message) {
+
     }
 }
 
 module.exports = { Zoom };
 
-// async function test() {
-//     let zoom = new Zoom();
-//     await zoom.init("https://uni-sydney.zoom.us/j/83168226455", "Vroom");
-//     await sleep(2);
-//     // await zoom.leave();
-//     // await zoom.sendMessage("Samantha Millett", "1");
-//     // await zoom.sendMessage("Lilian Hunt", "2");
-//     // await zoom.sendMessage("Host", "3");
-//     // await zoom.sendMessage("Everyone", "4");
-//     // await zoom.sendMessage("Everyone", "5");
-//     // let messages = await zoom.readMessages();
-//     // console.log(messages);
-//     // sleep(100000);
-// }
+async function test() {
+    let zoom = new Zoom();
+    await zoom.init("https://uni-sydney.zoom.us/j/83168226455", "Vroom");
+    await sleep(2);
+    // await zoom.leave();
+    // await zoom.sendMessage("Samantha Millett", "1");
+    // await zoom.sendMessage("Lilian Hunt", "2");
+    // await zoom.sendMessage("Host", "3");
+    // await zoom.sendMessage("Everyone", "4");
+    // await zoom.sendMessage("Everyone", "5");
+    // let messages = await zoom.readMessages();
+    // console.log(messages);
+    sleep(100000);
+}
 
-// test();
+test();
