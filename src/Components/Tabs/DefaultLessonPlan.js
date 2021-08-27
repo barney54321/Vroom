@@ -10,6 +10,10 @@ const Commands = () => {
     const importPlan = () => {
         // function to import a lesson plan
     }
+
+    const submitForm = () => {
+        
+    }
     return (
         <div>
             <Form onSubmit={submitForm}>

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import CustomDropZone from "../Common/CustomDropZone";
+import CustomDropZone from "../../Common/CustomDropZone";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button';
@@ -7,7 +7,7 @@ import CloseButton from 'react-bootstrap/CloseButton'
 
 const alphabet = "abcde"
 
-const LessonPlan = (props) => {
+const BuildPoll = (props) => {
 
     const [options, setOptions]  = useState(["", ""])
     const [name, setName] = useState("");
@@ -25,7 +25,7 @@ const LessonPlan = (props) => {
             copy.push(document.getElementById("option" + i).value);
         }
         copy.splice(index, 1);
-        setOptions(copy)
+        setOptions(copy);
     }
 
     const importPoll = (json) => {
@@ -72,4 +72,4 @@ const LessonPlan = (props) => {
     )
 }
 
-export default LessonPlan;
+export default BuildPoll;
