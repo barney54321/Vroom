@@ -9,7 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BarObject from "./BarObject";
 import BuildPoll from "../Tabs/Poll/BuildPoll";
-import DefaultLessonPlan from "../Tabs/DefaultLessonPlan"
+import DefaultLessonPlan from "../Tabs/DefaultLessonPlan";
+import Commands from "../Tabs/Commands";
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
 
 const SideNav = (props) => {
@@ -57,14 +58,10 @@ const SideNav = (props) => {
                             <BuildPoll />
                         </TabPane>
                         <TabPane eventKey="fourth">
-<<<<<<< HEAD
                             <DefaultLessonPlan />
-=======
-                            <LessonPlan />
->>>>>>> 31008c84f501148802c4c7104969a76ab4e04f2f
                         </TabPane>
                         <TabPane eventKey="fifth">
-                        <p>Lesson Plan</p>
+                            <Commands />
                         </TabPane>
                     </TabContent>
                     </Col>

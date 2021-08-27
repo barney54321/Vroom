@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-const Commands = () => {
+const DefaultLessonPlan = () => {
     const createNew = () => {
         // function to create a new lesson plan
     }
@@ -15,9 +15,6 @@ const Commands = () => {
         // function to import a lesson plan
     }
 
-    const submitForm = () => {
-        
-    }
     return (
         <div>
             <Form onSubmit={submitForm}>
@@ -31,4 +28,4 @@ const Commands = () => {
     )
 }
 
-export default Commands
+export default DefaultLessonPlan
