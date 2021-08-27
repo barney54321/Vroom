@@ -11,14 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-var zoom;
-
-if (args === "test") {
-    zoom = new Dummy();
-} else {
-    zoom = new Zoom();
-}
-
+const zoom = args === "test" ? new Dummy() : new Zoom();
 
 /*
     JOIN - POST
@@ -29,7 +22,7 @@ app.post("/join", async (req, res) => {
     let body = req.body;
     let url = body.url;
     let name = body.name;
-    zoom = await zoom.init(url, name);
+    await zoom.init(url, name);
     res.sendStatus(200);
 });
 
