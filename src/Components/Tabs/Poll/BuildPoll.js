@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import CloseButton from 'react-bootstrap/CloseButton'
 import { VroomContext } from '../../Common/VroomContext';
 
-
 const alphabet = "abcde"
 
 const BuildPoll = (props) => {
@@ -16,6 +15,8 @@ const BuildPoll = (props) => {
     const [question, setQuestion] = useState("");
 
     const {
+        polls,
+        setPolls,
         setPollPage,
     } = useContext(VroomContext);
 
@@ -32,6 +33,22 @@ const BuildPoll = (props) => {
         }
         copy.splice(index, 1);
         setOptions(copy);
+    }
+
+    const handleSave = () => {
+        const options = [];
+        for (let i = 0; i < options.length; i++) {
+            options.push(document.getElementById("option" + i).value);
+        }
+        const name = document.getElementById("poll-name").value;
+        const question = document.getElementById("poll-question").value;
+        const copy = [...polls, {
+            name: name,
+            question: question,
+            options: options,
+            names: null
+        }]
+        setPolls(copy)
     }
 
     const importPoll = (json) => {
@@ -51,11 +68,11 @@ const BuildPoll = (props) => {
                 <Form className="center-colums w-100">
                     <div className="form-question">
                         <Form.Label className="mb-1">Poll Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" defaultValue={name} />
+                        <Form.Control id="poll-name" type="text" placeholder="Enter name" defaultValue={name} />
                     </div>
                     <div className="form-question">
                         <Form.Label className="mb-1">Poll Question</Form.Label>
-                        <Form.Control type="text" placeholder="Enter your question" defaultValue={question} />
+                        <Form.Control id="poll-question" type="text" placeholder="Enter your question" defaultValue={question} />
                     </div>
                     <div className="mt-4">
                         {options.map((option, index) => (
@@ -78,6 +95,7 @@ const BuildPoll = (props) => {
                 </div>
             </div>
             <Button onClick={handleExit}>Exit</Button>
+            <Button onClick={handleSave}>Save</Button>
         </div>
 
     )

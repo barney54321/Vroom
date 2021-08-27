@@ -19,8 +19,10 @@ const ExistingPoll = (props) => {
   
     return (
         <div>
-            <ListGroup.Item onClick={handleClick} action href={poll.link}>
-                {poll.name}
+            <ListGroup.Item action href={poll.link} className="d-flex">
+                <div className="existing-poll-text" onClick={handleClick}>
+                    {poll.name}
+                </div>
                 <CloseButton onClick={() => props.deletePoll(props.index)}/>
             </ListGroup.Item>
         </div>

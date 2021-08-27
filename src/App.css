@@ -137,3 +137,8 @@
 .poll-bar {
   text-align: center;
 }
+
+.existing-poll-text {
+  width: 95%;
+  height: 100%
+}

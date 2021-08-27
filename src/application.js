@@ -17,6 +17,9 @@ function createWindow() {
         title: "Vroom"
     });
 
+    mainWindow.webContents.openDevTools()
+
+
     // Hide the menubar
     mainWindow.setMenu(null);
 
