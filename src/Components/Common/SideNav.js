@@ -8,10 +8,11 @@ import TabContainer from 'react-bootstrap/TabContainer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BarObject from "./BarObject";
-import BuildPoll from "../Tabs/Poll/BuildPoll";
+import DefaultPollPage from "../Tabs/Poll/DefaultPollPage";
 import DefaultLessonPlan from "../Tabs/DefaultLessonPlan";
 import Commands from "../Tabs/Commands";
 import DefaultProgress from "../Tabs/DefaultProgress";
+import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting'
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
 
 const SideNav = (props) => {
@@ -49,14 +50,14 @@ const SideNav = (props) => {
                     <Col>
                     <TabContent>
                         <TabPane eventKey="first">
-                            <p>Meeting</p>
+                            <DefaultMeeting />
                         </TabPane>
                         <TabPane eventKey="second">
                             <DefaultProgress />
                         </TabPane>
                         <TabPane eventKey="third">
                             <BarObject />
-                            <BuildPoll />
+                            <DefaultPollPage />
                         </TabPane>
                         <TabPane eventKey="fourth">
                             <DefaultLessonPlan />

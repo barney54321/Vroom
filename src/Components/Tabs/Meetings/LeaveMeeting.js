@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-const Commands = () => {
+const LeaveMeeting = () => {
     const updateName = () => {
         // function to update name
     }
@@ -25,4 +25,4 @@ const Commands = () => {
     )
 }
 
-export default Commands
+export default LeaveMeeting

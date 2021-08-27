@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-const Commands = () => {
+const Meeting = () => {
     const launch = () => {
         // function when we submit form
     }
@@ -21,4 +21,4 @@ const Commands = () => {
     )
 }
 
-export default Commands
+export default Meeting;

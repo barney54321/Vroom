@@ -1,23 +1,17 @@
-import React from 'react'
-import ExistingPoll from './ExistingPoll'
-import { ListGroup } from 'react-bootstrap'
+import React, {useContext} from 'react';
+import ExistingPolls from './ExistingPolls';
+
+import { VroomContext } from '../../Common/VroomContext';
+
 const DefaultPollPage = (props) => {
-    // const polls = [{id: 1, description: "Poll 1"}]
-    const polls = props.polls;
     
-    const deletePoll = (index) => {
-        const copy = [...polls];
-        copy.splice(index, 1);
-        props.setPolls(copy);
-    }
+    const {
+        showPoll,
+    } = useContext(VroomContext);
 
     return (
         <div>
-            <ListGroup defaultActiveKey="">
-
-            {polls.map((poll) => (<ExistingPoll key={polls.id} poll={poll}/>))}
-        
-            </ListGroup>
+            {showPoll ? console.log("view poll") : <ExistingPolls />}
         </div>
     )
 }
