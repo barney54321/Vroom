@@ -15,6 +15,8 @@ class Zoom {
     constructor() {
         this.run = true;
         this.messageIDs = [];
+        this.poll = {};
+        this.progress = {};
     }
     
     async init(link, name) {
@@ -108,42 +110,29 @@ class Zoom {
     }
 
     async getProgress() {
-        return {
-            questions: [
-                {
-                    question: 1,
-                    names: ["Name 1", "Name 2"],
-                },
-                {
-                    question: 2,
-                    names: ["Name 3"],
-                },
-            ],
-        };
+        return this.progress;
     }
 
     async launchPoll(question, options) {
-        console.log(
-            "Launching poll with question " +
-                question +
-                "and options " +
-                options
-        );
+        this.poll = {};
+        this.poll["question"] = question;
+
+        let optionList = [];
+
+        for (let i = 0; i < options.length; i++) {
+            optionList.push({
+                option: options[i],
+                names: []
+            });
+        }
+
+        this.poll["options"] = optionList;
+
+        console.log("Launched poll " + JSON.stringify(this.poll));
     }
 
     async getResults() {
-        return {
-            options: [
-                {
-                    option: "True",
-                    names: ["Student A", "Student B"],
-                },
-                {
-                    option: "False",
-                    names: ["Student C"],
-                },
-            ],
-        };
+        return this.poll;
     }
 
     async closePoll() {
@@ -315,19 +304,19 @@ class Zoom {
 
 module.exports = { Zoom };
 
-async function test() {
-    let zoom = new Zoom();
-    await zoom.init("https://uni-sydney.zoom.us/j/83168226455", "Vroom");
-    await sleep(2);
-    // await zoom.leave();
-    // await zoom.sendMessage("Samantha Millett", "1");
-    // await zoom.sendMessage("Lilian Hunt", "2");
-    // await zoom.sendMessage("Host", "3");
-    // await zoom.sendMessage("Everyone", "4");
-    // await zoom.sendMessage("Everyone", "5");
-    // let messages = await zoom.readMessages();
-    // console.log(messages);
-    sleep(100000);
-}
+// async function test() {
+//     let zoom = new Zoom();
+//     await zoom.init("https://uni-sydney.zoom.us/j/87089283654", "Vroom");
+//     await sleep(2);
+//     // await zoom.leave();
+//     // await zoom.sendMessage("Samantha Millett", "1");
+//     // await zoom.sendMessage("Lilian Hunt", "2");
+//     // await zoom.sendMessage("Host", "3");
+//     // await zoom.sendMessage("Everyone", "4");
+//     // await zoom.sendMessage("Everyone", "5");
+//     // let messages = await zoom.readMessages();
+//     // console.log(messages);
+//     sleep(100000);
+// }
 
-test();
+// test();
