@@ -17,14 +17,14 @@ const Meeting = () => {
         });
     }
     return (
-        <div>
+        <div className="meeting-page p-1">
             <h4>Launch an assistant</h4>
             <Form onSubmit={launch}>
                 <Form.Group>
-                    <Form.Label>URL of the zoom meeting</Form.Label>
-                    <Form.Control id="url-link" type="text" placeholder="https://zoom.example..."></Form.Control>
-                    <Form.Label>Your zoom name</Form.Label>
-                    <Form.Control id="tutor-name" type="text" placeholder="Some name"></Form.Control>
+                    <Form.Label className="mb-2">URL of the zoom meeting</Form.Label>
+                    <Form.Control className="mb-4" id="url-link" type="text" placeholder="https://zoom.example..."></Form.Control>
+                    <Form.Label className="mb-2">Your zoom name</Form.Label>
+                    <Form.Control className="mb-4"id="tutor-name" type="text" placeholder="Some name"></Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={e => launch(e)}>Submit</Button>
             </Form>            

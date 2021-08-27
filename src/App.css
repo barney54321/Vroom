@@ -138,6 +138,13 @@
   text-align: center;
 }
 
+.meeting-page {
+  margin-top: 150px;
+}
+
+h4 {
+  padding-bottom: 10px;
+
 .existing-poll-text {
   width: 95%;
   height: 100%
