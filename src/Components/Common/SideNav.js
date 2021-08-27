@@ -14,6 +14,7 @@ import Commands from "../Tabs/Commands";
 import DefaultProgress from "../Tabs/DefaultProgress";
 import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting'
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
+import PollNotLaunched from "../Tabs/Poll/PollNotLaunched";
 
 const SideNav = (props) => {
 
