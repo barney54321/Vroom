@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
+    "chromedriver": "^92.0.1",
     "concurrently": "^6.2.1",
     "cors": "^2.8.5",
     "electron": "^13.2.2",
@@ -33,8 +34,11 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "backend": "nodemon backend/backend.js",
+    "backend-test": "nodemon backend/backend.js test",
     "dev": "concurrently \"set BROWSER=none && npm start\" \"wait-on http://localhost:3000 && electron .\" \"nodemon backend/backend.js\" -k",
-    "dev-mac": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\" \"nodemon backend/backend.js\" -k"
+    "dev-mac": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\" \"nodemon backend/backend.js\" -k",
+    "dev-test": "concurrently \"set BROWSER=none && npm start\" \"wait-on http://localhost:3000 && electron .\" \"nodemon backend/backend.js test\" -k",
+    "dev-mac-test": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\" \"nodemon backend/backend.js test\" -k"
   },
   "eslintConfig": {
     "extends": [
