@@ -71,6 +71,104 @@ app.get("/getprogress", (req, res) => {
     res.send(obj);
 });
 
+/*
+    LAUNCHPOLL - POST
+    Send JSON body with question and options: {question: "1+1=2", options: ["True", "False"]}
+    Returns 200 on success, 400 on failure
+*/
+app.post("/launchpoll", (req, res) => {
+    let body = req.body;
+    let question = body.question;
+    let options = body.options;
+    console.log(question + " " + options);
+    res.sendStatus(200);
+});
+
+/*
+    RESULTS - GET
+    Returns results from students: {options: [{option: "True", names: ["Student A", "Student B"]}, {option: "False", names: ["Student C"]}]}
+*/
+app.get("/results", (req, res) => {
+    let obj = {
+        options: [
+            {
+                option: "True",
+                names: [
+                    "Student A",
+                    "Student B"
+                ]
+            },
+            {
+                option: "False",
+                names: [
+                    "Student C"
+                ]
+            }
+        ]
+    };
+    res.send(obj);
+});
+
+/*
+    CLOSEPOLL - POST
+    No body required
+    Returns results in same format as /RESULTS
+*/
+app.post("/closepoll", (req, res) => {
+    let obj = {
+        options: [
+            {
+                option: "True",
+                names: [
+                    "Student A",
+                    "Student B"
+                ]
+            },
+            {
+                option: "False",
+                names: [
+                    "Student C"
+                ]
+            }
+        ]
+    };
+    res.send(obj);
+});
+
+/*
+    STARTPLAN - POST
+    Send JSON body with sections: {sections: [{sectionTitle: "Revision", sectionTime: 10, sectionDesc: "Revision for last week"}]}
+    Returns 200 on success, 400 on failure
+*/
+app.post("/startplan", (req, res) => {
+    let body = req.body;
+    let sections = body.sections;
+    console.log(sections);
+    res.sendStatus(200);
+});
+
+/*
+    STOPPLAN - POST
+    No body required
+    Returns 200 on success, 400 on failure
+*/
+app.post("/stopplan", (req, res) => {
+    console.log("Ended plan");
+    res.sendStatus(200);
+});
+
+/*
+    UPDATECOMMANDS - POST
+    Send JSON body with new commands: {commands: [{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}]}
+    Returns 200 on success, 400 on failure
+*/
+app.post("/updatecommands", (req, res) => {
+    let body = req.body;
+    let commands = body.commands;
+    console.log(commands);
+    res.sendStatus(200);
+});
+
 app.listen(port, () => {
     console.log("Listening on port " + port);
 });
