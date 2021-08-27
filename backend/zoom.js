@@ -2,6 +2,7 @@ require("chromedriver");
 const webdriver = require("selenium-webdriver");
 const { By } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
+var Mutex = require('async-mutex').Mutex; 
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -10,6 +11,13 @@ function sleep(ms) {
 }
 
 class Zoom {
+
+    constructor() {
+        this.run = true;
+        this.messageIDs = [];
+        this.poll = {};
+        this.progress = {};
+    }
     
     async init(link, name) {
         this.link = link.replace("/j/", "/wc/join/");
@@ -59,10 +67,15 @@ class Zoom {
             By.id("chatReceiverMenu")
         );
 
+        this.monitor();
+
         console.log("Joined meeting " + this.link + " with name " + name);
     }
 
     async leave() {
+        // Stop running
+        this.run = false;
+
         // Press more options button
         await this.driver.executeScript(
             "document.getElementById('moreButton').click()"
@@ -97,42 +110,29 @@ class Zoom {
     }
 
     async getProgress() {
-        return {
-            questions: [
-                {
-                    question: 1,
-                    names: ["Name 1", "Name 2"],
-                },
-                {
-                    question: 2,
-                    names: ["Name 3"],
-                },
-            ],
-        };
+        return this.progress;
     }
 
     async launchPoll(question, options) {
-        console.log(
-            "Launching poll with question " +
-                question +
-                "and options " +
-                options
-        );
+        this.poll = {};
+        this.poll["question"] = question;
+
+        let optionList = [];
+
+        for (let i = 0; i < options.length; i++) {
+            optionList.push({
+                option: options[i],
+                names: []
+            });
+        }
+
+        this.poll["options"] = optionList;
+
+        console.log("Launched poll " + JSON.stringify(this.poll));
     }
 
     async getResults() {
-        return {
-            options: [
-                {
-                    option: "True",
-                    names: ["Student A", "Student B"],
-                },
-                {
-                    option: "False",
-                    names: ["Student C"],
-                },
-            ],
-        };
+        return this.poll;
     }
 
     async closePoll() {
@@ -163,6 +163,7 @@ class Zoom {
     }
 
     async sendMessage(receiver, message) {
+        console.log("RECEIVER: " + receiver);
         await this.recipientButton.click();
 
         // Get scrollbar
@@ -181,11 +182,11 @@ class Zoom {
             await recipientList[1].click();
         } else {
             // Find person in list
-            for (let i = 2; i < recipientList.length; i++) {
+            for (let i = 1; i < recipientList.length; i++) {
                 let recipient = recipientList[i];
                 let text = await recipient.getText();
 
-                if (text === receiver) {
+                if (text.replace("(Host)", "") === receiver) {
                     await recipient.click();
                     break;
                 }
@@ -264,27 +265,40 @@ class Zoom {
         }
 
         return res;
+    }
 
-        // Chat messages all inside div with id="chat-list-content"
-        // Inside div is single div holding expandable list of divs. This div has no id but has class="ReactVirtualized__Grid__innerScrollContainer"
-        // Inside this div is collection of divs for messages and headers
-            // None of these divs have ids or classes, but all have role="alert"
-            // When a message is sent by a different person to the last message, the div has two children for the name header and the message
-            // When a message is sent by the same person as the last message, the div only has the message div as its child
-                // The very first message header has class="chat-item__chat-info-header chat-item__chat-info-header--first-one"
-                // All other message headers have class="chat-item__chat-info-header"
-        // Message header divs have div and span children
-            // div child has class="chat-item__chat-info-header"
-                // div child has span child which stores sender name
-                    // span child has class="chat-item__sender chat-item__chat-info-header--can-select"
-                    // span child data name, title and innerText are all the name of the sender
-            // span child has class="chat-item__chat-info-time-stamp"
-                // span child stores timestamp as innerText
-        // Message divs have img and div children
-            // div child has class="chat-message__container"
-            // div child has div child
-                // div child has class="chat-message__text-box chat-message__text-content chat-message__text-box--others"
-                // div child innerText is message
+    async monitor() {
+        console.log("Monitoring chat");
+
+        while (this.run) {
+            await this.processMessages();
+            await sleep(1000);
+        }
+    }
+
+    async processMessages() {
+        let newMessages = await this.readMessages();
+
+        for (let i = 0; i < newMessages.length; i++) {
+            // Using dodgy method to overcome weird memory issues
+            let message = JSON.parse(JSON.stringify(newMessages[i]));
+
+            if (this.messageIDs.includes(message.id)) {
+                continue;
+            }
+
+            this.messageIDs.push(message.id);
+
+            console.log(message);
+
+            if (message.sender !== "Me") {
+                await this.handleMessage(message);
+            }
+        }
+    }
+
+    async handleMessage(message) {
+
     }
 }
 
@@ -292,16 +306,17 @@ module.exports = { Zoom };
 
 // async function test() {
 //     let zoom = new Zoom();
-//     await zoom.init("https://uni-sydney.zoom.us/j/83168226455", "Vroom");
+//     await zoom.init("https://uni-sydney.zoom.us/j/87089283654", "Vroom");
 //     await sleep(2);
 //     // await zoom.leave();
-//     await zoom.sendMessage("Samantha Millett", "1");
-//     await zoom.sendMessage("Lilian Hunt", "2");
-//     await zoom.sendMessage("Host", "3");
-//     await zoom.sendMessage("Everyone", "4");
-//     await zoom.sendMessage("Everyone", "5");
-//     let messages = await zoom.readMessages();
-//     console.log(messages);
+//     // await zoom.sendMessage("Samantha Millett", "1");
+//     // await zoom.sendMessage("Lilian Hunt", "2");
+//     // await zoom.sendMessage("Host", "3");
+//     // await zoom.sendMessage("Everyone", "4");
+//     // await zoom.sendMessage("Everyone", "5");
+//     // let messages = await zoom.readMessages();
+//     // console.log(messages);
+//     sleep(100000);
 // }
 
 // test();
