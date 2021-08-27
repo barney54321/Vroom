@@ -83,3 +83,7 @@
 .row {
   width: 100%;
 }
+
+.row.side-tabs {
+  width: 30%;
+}
