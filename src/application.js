@@ -10,6 +10,9 @@ function createWindow() {
         fullscreenable: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            enableRemoteModule: true,
+            contextIsolation: false
         },
         title: "Vroom"
     });
