@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-const DefaultLessonPlan = () => {
+const OpeningLessonPlan = () => {
     const createNew = () => {
         // function to create a new lesson plan
     }
@@ -28,4 +28,4 @@ const DefaultLessonPlan = () => {
     )
 }
 
-export default DefaultLessonPlan
+export default OpeningLessonPlan

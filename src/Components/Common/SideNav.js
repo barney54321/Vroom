@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BarObject from "./BarObject";
 import DefaultPollPage from "../Tabs/Poll/DefaultPollPage";
-import DefaultLessonPlan from "../Tabs/DefaultLessonPlan";
+import DefaultLessonPlan from "../Tabs/LessonPlan/DefaultLessonPlan";
 import Commands from "../Tabs/Commands";
 import DefaultProgress from "../Tabs/DefaultProgress";
 import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting'
