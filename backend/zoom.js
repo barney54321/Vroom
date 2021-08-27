@@ -10,6 +10,10 @@ function sleep(ms) {
 }
 
 class Zoom {
+
+    constructor() {
+        this.run = true;
+    }
     
     async init(link, name) {
         this.link = link.replace("/j/", "/wc/join/");
@@ -59,10 +63,15 @@ class Zoom {
             By.id("chatReceiverMenu")
         );
 
+        this.monitor();
+
         console.log("Joined meeting " + this.link + " with name " + name);
     }
 
     async leave() {
+        // Stop running
+        this.run = false;
+
         // Press more options button
         await this.driver.executeScript(
             "document.getElementById('moreButton').click()"
@@ -264,27 +273,16 @@ class Zoom {
         }
 
         return res;
+    }
 
-        // Chat messages all inside div with id="chat-list-content"
-        // Inside div is single div holding expandable list of divs. This div has no id but has class="ReactVirtualized__Grid__innerScrollContainer"
-        // Inside this div is collection of divs for messages and headers
-            // None of these divs have ids or classes, but all have role="alert"
-            // When a message is sent by a different person to the last message, the div has two children for the name header and the message
-            // When a message is sent by the same person as the last message, the div only has the message div as its child
-                // The very first message header has class="chat-item__chat-info-header chat-item__chat-info-header--first-one"
-                // All other message headers have class="chat-item__chat-info-header"
-        // Message header divs have div and span children
-            // div child has class="chat-item__chat-info-header"
-                // div child has span child which stores sender name
-                    // span child has class="chat-item__sender chat-item__chat-info-header--can-select"
-                    // span child data name, title and innerText are all the name of the sender
-            // span child has class="chat-item__chat-info-time-stamp"
-                // span child stores timestamp as innerText
-        // Message divs have img and div children
-            // div child has class="chat-message__container"
-            // div child has div child
-                // div child has class="chat-message__text-box chat-message__text-content chat-message__text-box--others"
-                // div child innerText is message
+    async monitor() {
+        console.log("Monitoring chat");
+
+        while (this.run) {
+            let messages = await this.readMessages();
+            console.log(messages);
+            await sleep(1000);
+        }
     }
 }
 
@@ -295,13 +293,14 @@ module.exports = { Zoom };
 //     await zoom.init("https://uni-sydney.zoom.us/j/83168226455", "Vroom");
 //     await sleep(2);
 //     // await zoom.leave();
-//     await zoom.sendMessage("Samantha Millett", "1");
-//     await zoom.sendMessage("Lilian Hunt", "2");
-//     await zoom.sendMessage("Host", "3");
-//     await zoom.sendMessage("Everyone", "4");
-//     await zoom.sendMessage("Everyone", "5");
-//     let messages = await zoom.readMessages();
-//     console.log(messages);
+//     // await zoom.sendMessage("Samantha Millett", "1");
+//     // await zoom.sendMessage("Lilian Hunt", "2");
+//     // await zoom.sendMessage("Host", "3");
+//     // await zoom.sendMessage("Everyone", "4");
+//     // await zoom.sendMessage("Everyone", "5");
+//     // let messages = await zoom.readMessages();
+//     // console.log(messages);
+//     // sleep(100000);
 // }
 
 // test();
