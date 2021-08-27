@@ -1,11 +1,17 @@
 import React, {useState, useContext} from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import BarObject from '../../Common/BarObject';
+import { VroomContext } from '../../Common/VroomContext';
+
 // import { VroomContext } from '../Common/VroomContext';
 
 const ViewPoll = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showStudentsForPoll] = useState(true);
+
+    const {
+        setPollPage,
+    } = useContext(VroomContext);
     
     const poll = [{question: "q1", students: ["amy", "bob"], value: 90}, {question: "q2", students: ["caro", "db"], value: 90}]
     
@@ -29,6 +35,10 @@ const ViewPoll = () => {
         console.log("create new poll")
     }
 
+    const handleBack = () => {
+        setPollPage("existing")
+    }
+
 
     return (
         <div>
@@ -45,6 +55,7 @@ const ViewPoll = () => {
             <Button variant="danger" onClick={closePoll}>Close Poll</Button>
             <Button onClick={refresh}>Refresh</Button>
             <Button onClick={createNewPoll}>+ New Poll</Button>
+            <Button onClick={handleBack}>Back</Button>
         </div>
         
     )
