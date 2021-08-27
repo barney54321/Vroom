@@ -7,6 +7,10 @@ const Commands = () => {
         // function to create a new lesson plan
     }
 
+    const submitForm = () => {
+        // function to create a new lesson plan
+    }
+
     const importPlan = () => {
         // function to import a lesson plan
     }
