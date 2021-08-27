@@ -7,6 +7,7 @@ import TabContent from 'react-bootstrap/TabContent';
 import TabContainer from 'react-bootstrap/TabContainer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import BarObject from "./BarObject";
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
 
 const SideNav = (props) => {
@@ -42,7 +43,7 @@ const SideNav = (props) => {
                         </Nav>
                     </Col>
                     <Col>
-d                    <TabContent>
+                    <TabContent>
                         <TabPane eventKey="first">
                             <p>Meeting</p>
                         </TabPane>
@@ -50,7 +51,7 @@ d                    <TabContent>
                             <p>Progress</p>
                         </TabPane>
                         <TabPane eventKey="third">
-                            <p>Hello</p>
+                            <BarObject />
                         </TabPane>
                         <TabPane eventKey="fourth">
                             <p>Hello</p>
