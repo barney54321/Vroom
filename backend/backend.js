@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const {Dummy} = require("./dummy");
+const {Zoom} = require("./zoom");
+const args = process.argv[2];
 
 const port = 8000;
 
@@ -9,9 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-var zoom;
-
-zoom = new Dummy();
+const zoom = args === "test" ? new Dummy() : new Zoom();
 
 /*
     JOIN - POST
@@ -22,7 +22,7 @@ app.post("/join", async (req, res) => {
     let body = req.body;
     let url = body.url;
     let name = body.name;
-    zoom = await zoom.init(url, name);
+    await zoom.init(url, name);
     res.sendStatus(200);
 });
 
