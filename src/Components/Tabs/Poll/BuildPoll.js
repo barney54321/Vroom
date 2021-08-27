@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import CustomDropZone from "../../Common/CustomDropZone";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button';
 import CloseButton from 'react-bootstrap/CloseButton'
+import { VroomContext } from '../../Common/VroomContext';
+
 
 const alphabet = "abcde"
 
@@ -12,6 +14,10 @@ const BuildPoll = (props) => {
     const [options, setOptions]  = useState(["", ""])
     const [name, setName] = useState("");
     const [question, setQuestion] = useState("");
+
+    const {
+        setPollPage,
+    } = useContext(VroomContext);
 
     const handleAdd = () => {
         if (options.length < 5) {
@@ -32,6 +38,10 @@ const BuildPoll = (props) => {
         setName(json.name);
         setQuestion(json.question);
         setOptions(json.options)
+    }
+
+    const handleExit = () => {
+        setPollPage("existing")
     }
 
     return (
@@ -67,6 +77,7 @@ const BuildPoll = (props) => {
                 <Button variant="outline-primary" onClick={handleAdd}>+ OPTION</Button>
                 </div>
             </div>
+            <Button onClick={handleExit}>Exit</Button>
         </div>
 
     )

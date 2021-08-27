@@ -10,6 +10,7 @@ const ExistingPolls = (props) => {
     const {
         polls,
         setPolls,
+        setPollPage,
     } = useContext(VroomContext);
     
     const deletePoll = (index) => {
@@ -19,6 +20,7 @@ const ExistingPolls = (props) => {
     }
     
     const addPoll = () => {
+        setPollPage("build")
         console.log("add poll clicked");
         
     }

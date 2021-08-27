@@ -1,20 +1,26 @@
 import React, {useContext} from 'react';
-import ExistingPolls from './ExistingPolls';
-
+import BuildPoll from './BuildPoll';
+import ExistingPolls from './ExistingPolls'
 import { VroomContext } from '../../Common/VroomContext';
+
 
 const DefaultPollPage = (props) => {
     
     const {
-        showPoll,
+        pollPage,
     } = useContext(VroomContext);
 
-    const addPoll = () => {
-        console.log("add poll clicked"); 
+    let page;
+
+    if (pollPage === "existing") {
+        page = <ExistingPolls />;
+    } else if (pollPage === "build") {
+        page = <BuildPoll />;
     }
+
     return (
         <div>
-            {showPoll ? console.log("view poll") : <ExistingPolls />}
+            {page}
         </div>
     )
 }
