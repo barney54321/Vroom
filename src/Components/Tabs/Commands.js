@@ -1,10 +1,18 @@
 import React from 'react'
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+
+// Send JSON body with new commands: {commands: [{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}]}
+
 
 const Commands = () => {
     const submitForm = () => {
-        // function when we submit form
+        axios.post("http://127.0.0.1:8080/updatecommands").then(res => {
+            
+        }).catch(err => {
+            console.log(err)
+        });
     }
     return (
         <div>

@@ -4,12 +4,23 @@ export const VroomContext = createContext({});
 
 export const VroomContextProvider = (props) => {
 
-    const [inMeeting, setInMeeting] = useState(false);
+    const [inMeeting, setInMeeting] = useState(true);
     const [pollPage, setPollPage] = useState("existing");
     const [currentPoll, setCurrentPoll] = useState("");
-    const [polls, setPolls] = useState([{name: "Poll 1"},{name: "Poll 2"}, {name: "Poll 3"} ])
+    const [polls, setPolls] = useState([{
+        name: "Poll 1",
+        question: "What project is more awesome?",
+        options: [ 
+            {option: "Vroom",
+            names: ["amy", "bob"]},
+            {option: "Vroom but in blue",
+            names: ["steven", "someone"]}
+        ]   
+    }])
     const [lessonPlan, setLessonPlan] = useState({title: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
     const [lessonPlanPage, setLessonPlanPage] = useState("build");
+    const [progress, setProgress] = useState([]);
+    const [activePoll, setActivePoll] = useState(null);
 
 
     return (
@@ -27,7 +38,10 @@ export const VroomContextProvider = (props) => {
                 setLessonPlan,
                 lessonPlanPage,
                 setLessonPlanPage,
-
+                progress,
+                setProgress,
+                activePoll,
+                setActivePoll,
             }}
         >
             {props.children}

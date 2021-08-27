@@ -2,37 +2,76 @@ import React, {useState, useContext} from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import BarObject from '../../Common/BarObject';
 import { VroomContext } from '../../Common/VroomContext';
+import axios from "axios";
 
 // import { VroomContext } from '../Common/VroomContext';
 
-const ViewPoll = () => {
+/*
+Poll
+{
+    name: "Poll 1",
+    question: "What project is more awesome?",
+    options: [ 
+        {option: "Vroom",
+        names: ["amy", "bob"]},
+        {option: "Vroom but in blue",
+        names: ["steven", "someone"]}
+    ]   
+}
+*/
+
+const ViewPoll = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [showStudentsForPoll] = useState(true);
+    const [showStudentsForPoll] = useState(false);
 
     const {
         setPollPage,
+        currentPoll,
+        activePoll,
+        setActivePoll,
+        polls,
+        setPolls
     } = useContext(VroomContext);
+
+    const isActive = currentPoll === activePoll;
     
-    const poll = [{question: "q1", students: ["amy", "bob"], value: 90}, {question: "q2", students: ["caro", "db"], value: 90}]
-    
+    //const poll = [{question: "q1", names: ["amy", "bob"], value: 90}, {question: "q2", names: ["caro", "db"], value: 90}]
+    const poll = polls[currentPoll];
+
     // need to get these values
-    const values = null;
-    const votes = 0;
-    const question = "Question"
+    const options = poll.options;
+    const question = poll.question;
+
+    const getResults = () => {
+        axios.get("http://127.0.0.1:8080/results").then(res => {
+            const copy = [...polls];
+            copy[currentPoll].options = res.data.options
+            setPolls(copy)
+        }).catch(err => {
+            console.log(err)
+        });
+    }
 
     const refresh = () => {
-        // refresh button 
-        console.log("refresh")
+        if (isActive) {
+            getResults();
+        }
     }
     
     const closePoll = () => {
         // close poll
-        console.log("close poll")
+        axios.post("http://127.0.0.1:8080/closepoll").then(res => {
+            const copy = [...polls];
+            copy[currentPoll].options = res.data.options
+            setPolls(copy)
+        }).catch(err => {
+            console.log(err)
+        });
     }
 
     const createNewPoll = () => {
         // close poll
-        console.log("create new poll")
+        setPollPage("build")
     }
 
     const handleBack = () => {
@@ -45,12 +84,17 @@ const ViewPoll = () => {
             <div>
                 <h4>Poll Results</h4>
                 <p>Select an answer to view students</p>
-                <BarObject values={values} votes={votes} question={question} activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
+                <BarObject
+                    options={options}
+                    question={question}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}>
+                </BarObject>
             </div>
             <div className="students"> 
                 {showStudentsForPoll && <h4>Students</h4>}
                 <ListGroup>
-                    {showStudentsForPoll && poll[activeIndex].students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+                    {showStudentsForPoll && poll[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
             </div>
             <Button variant="danger" onClick={closePoll}>Close Poll</Button>
