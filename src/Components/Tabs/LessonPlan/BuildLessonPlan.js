@@ -7,8 +7,8 @@ import { VroomContext } from '../../Common/VroomContext';
 
 const BuildLessonPlan = (props) => {
 
-    const [sections, setSections]  = useState([{
-        title: "",
+    const [contents, setcontents]  = useState([{
+        name: "",
         time: "",
         description: ""
     }])
@@ -20,9 +20,9 @@ const BuildLessonPlan = (props) => {
     } = useContext(VroomContext);
 
     const handleAdd = () => {
-        if (sections.length < 5) {
-            setSections([...sections, {
-                title: "",
+        if (contents.length < 5) {
+            setcontents([...contents, {
+                name: "",
                 time: "",
                 description: ""
             }]);
@@ -31,38 +31,39 @@ const BuildLessonPlan = (props) => {
 
     const handleDelete = (index) => {
         const copy = [];
-        for (let i = 0; i < sections.length; i++) {
-            const title = document.getElementById("section-title" + i).value;
-            const time = document.getElementById("section-time" + i).value;
-            const description = document.getElementById("section-description" + i).value;
+        for (let i = 0; i < contents.length; i++) {
+            const name = document.getElementById("contents-name" + i).value;
+            const time = document.getElementById("contents-time" + i).value;
+            const description = document.getElementById("contents-description" + i).value;
             copy.push({
-                title: title,
+                name: name,
                 time: time,
                 description: description
             })
         }
         
         copy.splice(index, 1);
-        setSections(copy);
+        setcontents(copy);
     }
 
     const handleSave = () => {
-        const sections = [];
-        for (let i = 0; i < sections.length; i++) {
-            const title = document.getElementById("section-title" + i).value;
-            const time = document.getElementById("section-time" + i).value;
-            const description = document.getElementById("section-description" + i).value;
-            sections.push({
-                title: title,
+        const contents = [];
+        for (let i = 0; i < contents.length; i++) {
+            const name = document.getElementById("contents-name" + i).value;
+            const time = document.getElementById("contents-time" + i).value;
+            const description = document.getElementById("contents-description" + i).value;
+            contents.push({
+                name: name,
                 time: time,
                 description: description
             })
         }
-        const title = document.getElementById("lesson-title").value;
+        const name = document.getElementById("lesson-name").value;
         setLessonPlan({
-            title: title,
-            sections: sections
+            name: name,
+            contents: contents
         })
+        setLessonPlanPage("view")
     }
 
     const handleExit = () => {
@@ -74,32 +75,32 @@ const BuildLessonPlan = (props) => {
             <div className="center-columns">
                 <Form className="center-colums w-100">
                     <div className="form-question">
-                        <Form.Label className="mb-1">Lesson Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title" id="lesson-title" defaultValue={name} />
+                        <Form.Label className="mb-1">Lesson name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter name" id="lesson-name" defaultValue={name} />
                     </div>
                     <div className="mt-4">
-                        {sections.map((section, index) => (
-                            <div className="d-flex flex-column" key={"overall"+index+section.title}>
+                        {contents.map((contents, index) => (
+                            <div className="d-flex flex-column" key={"overall"+index+contents.name}>
                                 <div className="d-flex">
-                                    <Form.Label className="mb-1">Section Title</Form.Label>
+                                    <Form.Label className="mb-1">Section name</Form.Label>
                                     <Form.Control
-                                        id={"section-title" + index}
-                                        placeholder="Section Title"
-                                        defaultValue={section.title}
+                                        id={"contents-name" + index}
+                                        placeholder="contents name"
+                                        defaultValue={contents.name}
                                     />
                                     <Form.Label className="mb-1">Time</Form.Label>
                                     <Form.Control
-                                        id={"section-time" + index}
+                                        id={"contents-time" + index}
                                         placeholder="10"
-                                        defaultValue={section.time}
+                                        defaultValue={contents.time}
                                     />
                                     <CloseButton onClick={() => handleDelete(index)} className="mt-2 ms-1"/>
                                 </div>
                                 <Form.Label className="mb-1">Teaching Notes</Form.Label>
                                 <Form.Control
-                                    id={"section-description" + index}
+                                    id={"contents-description" + index}
                                     placeholder="Description"
-                                    defaultValue={section.description}
+                                    defaultValue={contents.description}
                                 />
                                 
                             </div>
@@ -107,7 +108,7 @@ const BuildLessonPlan = (props) => {
                     </div>
                 </Form>
                 <div className="d-flex align-items-start w-100">
-                <Button variant="outline-primary" onClick={handleAdd}>+ Section</Button>
+                <Button variant="outline-primary" onClick={handleAdd}>+ SECTION</Button>
                 </div>
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={handleExit}>Exit</Button>

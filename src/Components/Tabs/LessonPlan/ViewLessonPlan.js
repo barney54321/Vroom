@@ -14,6 +14,8 @@ const ViewLessonPlan = () => {
     const clickStart = () => {
         console.log("Start");
     }
+
+    console.log(lessonPlan)
     
     return (
         <div>
