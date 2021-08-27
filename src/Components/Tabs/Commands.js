@@ -1,4 +1,6 @@
 import React from 'react'
+import { Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 const Commands = () => {
     const submitForm = () => {
@@ -6,13 +8,16 @@ const Commands = () => {
     }
     return (
         <div>
-            <form onSubmit={submitForm}>
-                <label>!now</label>
-                <input type="text" placeholder="Write your message here"></input>
-                <label>Your zoom name</label>
-                <input type="text" placeholder="Your exact zoom name"></input>
-                <button type="submit">Launch</button>
-            </form>
+            <h4>Modify Commands</h4>
+            <Form onSubmit={submitForm}>
+                <Form.Group>
+                    <Form.Label>!now</Form.Label>
+                    <Form.Control type="text" placeholder="Enter what students should be working on now"></Form.Control>
+                    <Form.Label>!attend</Form.Label>
+                    <Form.Control type="text" placeholder="Enter the attendance link."></Form.Control>
+                </Form.Group>
+                <Button variant="primary" type="submit">Submit</Button>
+            </Form>      
         </div>
     )
 }

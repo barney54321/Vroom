@@ -1,18 +1,22 @@
 import React from 'react'
-
+import { Form, FormGroup } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 const Commands = () => {
     const launch = () => {
         // function when we submit form
     }
     return (
         <div>
-            <form onSubmit={launch}>
-                <label>URL of the zoom meeting</label>
-                <input type="text" placeholder="https://zoom.example..."></input>
-                <label>!attend</label>
-                <input type="text" placeholder="Write your message here"></input>
-                <button type="submit">Save</button>
-            </form>
+            <h4>Launch an assistant</h4>
+            <Form onSubmit={launch}>
+                <Form.Group>
+                    <Form.Label>URL of the zoom meeting</Form.Label>
+                    <Form.Control type="text" placeholder="https://zoom.example..."></Form.Control>
+                    <Form.Label>Your zoom name</Form.Label>
+                    <Form.Control type="text" placeholder="Some name"></Form.Control>
+                </Form.Group>
+                <Button variant="primary" type="submit">Submit</Button>
+            </Form>            
         </div>
     )
 }
