@@ -9,6 +9,10 @@ const DefaultPollPage = (props) => {
         showPoll,
     } = useContext(VroomContext);
 
+    const addPoll = () => {
+        console.log("add poll clicked");
+        
+    }
     return (
         <div>
             {showPoll ? console.log("view poll") : <ExistingPolls />}

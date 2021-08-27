@@ -4,10 +4,10 @@ export const VroomContext = createContext({});
 
 export const VroomContextProvider = (props) => {
 
-    const [polls, setPolls] = useState("HelloWorld");
     const [inMeeting, setInMeeting] = useState(false);
     const [showPoll, setShowPoll] = useState(false);
     const [currentPoll, setCurrentPoll] = useState("");
+    const [polls, setPolls] = useState([{name: "Poll 1"},{name: "Poll 2"}, {name: "Poll 3"} ])
 
     return (
         <VroomContext.Provider

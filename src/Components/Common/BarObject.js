@@ -2,12 +2,12 @@ import React, {useState} from "react";
 import PercentageBar from "./PercentageBar";
 
 const BarObject = (props) => {
-
-    const [activeIndex, setActiveIndex] = useState(null);
+    const activeIndex = props.activeIndex
+    const setActiveIndex = props.setActiveIndex
 
     let values = props.results == null ? [{value: 42, name: "Zoom"},{value: 58, name: "Teams"}] : props.results;
     let question = props.question == null ? "What's better?" : props.question;
-    let votes = props.votes == null ? 32 : props.votes;
+    let votes = props.votes == null ? false : props.votes;
 
     const handleClick = (index) => {
         setActiveIndex(index)
@@ -26,7 +26,7 @@ const BarObject = (props) => {
                 />
             ))}
             <div className="total-votes">
-                <p>{`${votes} votes`}</p>
+                <p>{votes === false ? "": `${votes} votes`}</p>
             </div>
         </div>
     );
