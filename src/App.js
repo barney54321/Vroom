@@ -1,11 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
-import Commands from './Components/Tabs/Commands'
+import Page from './Components/Page';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {VroomContextProvider} from "./Components/Common/VroomContext";
+
+
 function App() {
   return (
     <div className="App">
-      <Commands/>
-    
+      <VroomContextProvider >
+        <Page />
+      </VroomContextProvider>
     </div>
   );
 }
