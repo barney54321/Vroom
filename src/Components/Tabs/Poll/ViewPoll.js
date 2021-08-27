@@ -32,7 +32,7 @@ const ViewPoll = () => {
 
     const createNewPoll = () => {
         // close poll
-        console.log("create new poll")
+        setPollPage("build")
     }
 
     const handleBack = () => {
