@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BarObject from "./BarObject";
 import BuildPoll from "../Tabs/BuildPoll"
+import DefaultLessonPlan from ".../Tabs/DefaultLessonPlan";
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
 
 const SideNav = (props) => {
