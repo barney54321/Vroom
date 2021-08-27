@@ -7,8 +7,7 @@ const ViewPoll = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showStudentsForPoll] = useState(true);
     
-
-    const progress = [{question: "q1", students: ["amy", "bob"], value: 90}, {question: "q2", students: ["caro", "db"], value: 90}]
+    const poll = [{question: "q1", students: ["amy", "bob"], value: 90}, {question: "q2", students: ["caro", "db"], value: 90}]
     
     // need to get these values
     const values = null;
@@ -40,7 +39,7 @@ const ViewPoll = () => {
             </div>
             <div className="students"> 
                 <ListGroup>
-                    {showStudentsForPoll && progress[activeIndex].students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+                    {showStudentsForPoll && poll[activeIndex].students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
             </div>
             <Button variant="danger" onClick={closePoll}>Close Poll</Button>
