@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react';
 import { Form, FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { VroomContext } from '../../Common/VroomContext';
+
 
 const OpeningLessonPlan = () => {
+
+    const {
+        setLessonPlanPage,
+    } = useContext(VroomContext);
+
     const createNew = () => {
-        // function to create a new lesson plan
+        setLessonPlanPage("build")
     }
 
     const submitForm = () => {

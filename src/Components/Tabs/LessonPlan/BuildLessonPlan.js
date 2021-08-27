@@ -16,6 +16,7 @@ const BuildLessonPlan = (props) => {
 
     const {
         setLessonPlan,
+        setLessonPlanPage
     } = useContext(VroomContext);
 
     const handleAdd = () => {
@@ -40,11 +41,8 @@ const BuildLessonPlan = (props) => {
                 description: description
             })
         }
-        console.log(copy)
-        console.log(index)
-        console.log("length", copy.length)
+        
         copy.splice(index, 1);
-        console.log(copy)
         setSections(copy);
     }
 
@@ -65,6 +63,10 @@ const BuildLessonPlan = (props) => {
             title: title,
             sections: sections
         })
+    }
+
+    const handleExit = () => {
+        setLessonPlanPage("opening")
     }
 
     return (
@@ -108,6 +110,7 @@ const BuildLessonPlan = (props) => {
                 <Button variant="outline-primary" onClick={handleAdd}>+ Section</Button>
                 </div>
                 <Button onClick={handleSave}>Save</Button>
+                <Button onClick={handleExit}>Exit</Button>
             </div>
         </div>
 
