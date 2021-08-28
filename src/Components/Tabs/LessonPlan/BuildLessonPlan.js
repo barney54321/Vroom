@@ -71,6 +71,15 @@ const BuildLessonPlan = (props) => {
                 }
             ]);
         setName("");
+        setLessonPlan({
+            name: "", 
+            contents: [
+                {name: "",
+                    description: "",
+                    time:""
+                }
+            ]
+        });
     }
 
     const importLessonPlan = (json) => {
@@ -83,7 +92,7 @@ const BuildLessonPlan = (props) => {
             <h4>Set Lesson Plan</h4>
             <div className="center-columns">
                 <CustomDropZone callback={importLessonPlan}/>
-                <h3 className="mt-2">Or build your own</h3>
+                <h4 style={{marginTop: -15, marginBottom: -5}}>Or build your own</h4>
                 <Form className="center-colums w-100">
                     <div className="form-question">
                         <Form.Label className="mb-1">Lesson name</Form.Label>
@@ -99,7 +108,7 @@ const BuildLessonPlan = (props) => {
                                         <Form.Control
                                             className="name-submit"
                                             id={"contents-name" + index}
-                                            placeholder="contents name"
+                                            placeholder="Enter name"
                                             defaultValue={contents.name}
                                         />
                                     </div>
@@ -120,7 +129,7 @@ const BuildLessonPlan = (props) => {
                                 <Form.Control
                                     className="mb-3"
                                     id={"contents-description" + index}
-                                    placeholder="Description"
+                                    placeholder="Enter notes..."
                                     defaultValue={contents.description}
                                 />
                                 

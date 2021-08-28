@@ -49,14 +49,15 @@
 }
 
 .nav-link.active.custom-nav {
-  background-color: #07367b;
+  background-color: #07367b !important;
   font-weight: bold;
 }
 
 .nav-link.custom-nav {
-  background-color: #0d6efd;
+  /* background-color: #0d6efd; */
   color: white;
   margin: 5px 10px;
+  margin-right: -1px;
   cursor: pointer;
 }
 
@@ -166,6 +167,7 @@ h4 {
 .tab-container {
   height: 569.2px;
   padding: 10px;
+  margin-right:-30px
 
 }
 
@@ -192,7 +194,25 @@ h4 {
   margin-right: 10px;
 }
 
+#root {
+  overflow-y: hidden;
+  height: 569.2px;
+}
+
 .section-close {
   margin-top: 35px;
   margin-left: 10px;
+}
+
+.scrollbar {
+  height: 569.2px;
+  margin-right: -23px
+}
+
+.side-tabs.col {
+  max-width: 230px;
+}
+
+body {
+  overflow-y: hidden;
 }

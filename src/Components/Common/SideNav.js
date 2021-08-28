@@ -11,7 +11,10 @@ import DefaultPollPage from "../Tabs/Poll/DefaultPollPage";
 import DefaultLessonPlan from "../Tabs/LessonPlan/DefaultLessonPlan";
 import Commands from "../Tabs/Commands";
 import DefaultProgress from "../Tabs/DefaultProgress";
-import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting'
+import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
 
 const SideNav = (props) => {
@@ -47,23 +50,25 @@ const SideNav = (props) => {
                         </Nav>
                     </Col>
                     <Col>
-                    <TabContent>
-                        <TabPane eventKey="first">
-                            <DefaultMeeting />
-                        </TabPane>
-                        <TabPane eventKey="second">
-                            <DefaultProgress />
-                        </TabPane>
-                        <TabPane eventKey="third">
-                            <DefaultPollPage />
-                        </TabPane>
-                        <TabPane eventKey="fourth">
-                            <DefaultLessonPlan />
-                        </TabPane>
-                        <TabPane eventKey="fifth">
-                            <Commands />
-                        </TabPane>
-                    </TabContent>
+                    <SimpleBar className="scrollbar">
+                        <TabContent>
+                            <TabPane eventKey="first">
+                                <DefaultMeeting />
+                            </TabPane>
+                            <TabPane eventKey="second">
+                                <DefaultProgress />
+                            </TabPane>
+                            <TabPane eventKey="third">
+                                <DefaultPollPage />
+                            </TabPane>
+                            <TabPane eventKey="fourth">
+                                <DefaultLessonPlan />
+                            </TabPane>
+                            <TabPane eventKey="fifth">
+                                <Commands />
+                            </TabPane>
+                        </TabContent>
+                    </SimpleBar>
                     </Col>
                 </Row>
             </TabContainer>
