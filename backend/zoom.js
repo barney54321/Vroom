@@ -309,6 +309,10 @@ class Zoom {
             await this.translator(message);  
         } else if (splits[0] === "!anon") {
             await this.anon(message);
+        } else if (splits[0] === "!slower") {
+            await this.slower(message);
+        } else if (splits[0] === "!faster") {
+            await this.faster(message);
         } else {
             console.log("Yes");
         }
@@ -350,6 +354,14 @@ class Zoom {
 
     async anon(message) {
         await this.sendMessage("Everyone", message.text.substring(6));
+    }
+
+    async slower(message) {
+        await this.sendMessage(this.name, message.sender + " wants you to go slower");
+    }
+
+    async faster(message) {
+        await this.sendMessage(this.name, message.sender + " wants you to go faster");
     }
 
 }
