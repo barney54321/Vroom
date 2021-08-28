@@ -17,7 +17,7 @@ const Meeting = () => {
         });
     }
     return (
-        <div className="meeting-page p-1">
+        <div className="p-1">
             <h4>Launch an assistant</h4>
             <Form onSubmit={launch}>
                 <Form.Group>
