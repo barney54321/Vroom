@@ -5,6 +5,7 @@ const path = require("path");
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
+        icon: "public/logo.png",
         width: 800,
         height: 600,
         fullscreenable: false,
@@ -28,9 +29,6 @@ function createWindow() {
 
     // and load the index.html of the app.
     mainWindow.loadURL("http://localhost:3000");
-
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
