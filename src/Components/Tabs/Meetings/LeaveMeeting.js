@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
-import { Form } from 'react-bootstrap';
+import React, { useState, useContext } from 'react'
+import { ToastContainer, Toast, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { VroomContext } from '../../Common/VroomContext';
 import axios from 'axios';
 
 const LeaveMeeting = () => {
+    const [showToast, setShowToast] = useState(false);
 
     const {
         setInMeeting,
@@ -16,12 +17,14 @@ const LeaveMeeting = () => {
 
         event.preventDefault();
         
+        
         // function to update name
         const name = document.getElementById("tutor-name").value;
 
         axios.post("http://127.0.0.1:8080/editname", {name: name}).then(res => {
             console.log(res)
             setTutorName(name);
+            setShowToast(true);
         }).catch(err => {
             console.log(err)
         });
@@ -53,6 +56,14 @@ const LeaveMeeting = () => {
             <div className="d-flex justify-content-end align-items-center your-meeting-button">
                 <Button variant="danger" onClick={killBot}>Kill bot</Button>
             </div>
+            <ToastContainer style={{width: "fit-content"}} position="top-end" className="p-3" >
+                <Toast bg='primary' className="my-toast" onClose={() => setShowToast(false)} show={showToast} delay={1000} autohide>
+                    <Toast.Body>Saved!</Toast.Body>
+                </Toast>
+            </ToastContainer>
+
+            
+        
         </div>
         
     )

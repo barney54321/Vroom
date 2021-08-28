@@ -35,7 +35,8 @@ const BarObject = (props) => {
             }
             for (let i =0; i < options.length; i++) {
                 let percentage = sum === 0 ? 0: options[i].names.length/sum*100;
-                values.push({name: options[i].option, value: percentage})
+                const name = props.showVotes === false ? "Question " + options[i].question : options[i].option;
+                values.push({name: name, value: percentage})
             }
         }
         return sum;
@@ -48,7 +49,7 @@ const BarObject = (props) => {
         props.setShowStudents(true);
     }
 
-    console.log("options", options)
+    console.log("values", values)
     
     return (
         <div>
@@ -57,7 +58,7 @@ const BarObject = (props) => {
                 <PercentageBar 
                     index={index}
                     value={result.value}
-                    name={props.showVotes === false ? "Question " + (index+1) : result.name}
+                    name={result.name}
                     active={index === activeIndex} 
                     handleClick={handleClick}
                 />
