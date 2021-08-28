@@ -21,7 +21,10 @@ class Zoom {
             questions: []
         };
         this.nowResponse = "Listen";
-        this.attendResponse = "https://bit.ly/3yt84NP"
+        this.attendResponse = "https://bit.ly/3yt84NP";
+
+        // Locks
+        this.pollLock = new Mutex();
     }
     
     async init(link, name) {
@@ -119,22 +122,24 @@ class Zoom {
     }
 
     async launchPoll(question, options) {
-        this.poll = {};
-        this.poll["question"] = question;
+        await this.pollLock.runExclusive(async () => {
+            this.poll = {};
+            this.poll["question"] = question;
 
-        let optionList = [];
+            let optionList = [];
 
-        for (let i = 0; i < options.length; i++) {
-            let option = {
-                option: options[i] + "",
-                names: []
+            for (let i = 0; i < options.length; i++) {
+                let option = {
+                    option: options[i] + "",
+                    names: []
+                }
+                optionList.push(option);
             }
-            optionList.push(option);
-        }
 
-        this.poll["options"] = optionList;
+            this.poll["options"] = optionList;
 
-        console.log("Launched poll " + JSON.stringify(this.poll));
+            console.log("Launched poll " + JSON.stringify(this.poll));
+        });
 
         let message = question;
 
@@ -149,11 +154,15 @@ class Zoom {
     }
 
     async getResults() {
-        return this.poll;
+        return await this.pollLock.runExclusive(async () => {
+            return this.poll;
+        });
     }
 
     async closePoll() {
-        return this.poll;
+        return await this.pollLock.runExclusive(async () => {
+            return this.poll;
+        });
     }
 
     async startPlan(plan) {
@@ -352,20 +361,25 @@ class Zoom {
 
         let vote = splits[1];
 
-        if (!letters.slice(0, this.poll.options.length).includes(vote)) {
-            await this.sendMessage(message.sender, "Option not available. Try voting again");
-            return;
-        }
+        // Lock the poll
+        await this.pollLock.runExclusive(async () => {
 
-        let optionIndex = letters.indexOf(vote);
+            if (!letters.slice(0, this.poll.options.length).includes(vote)) {
+                await this.sendMessage(message.sender, "Option not available. Try voting again");
+                return;
+            }
 
-        // Remove current student vote
-        for (let i = 0; i < this.poll.options.length; i++) {
-            this.poll.options[i].names = this.poll.options[i].names.filter(item => item !== message.sender);
-        }
+            let optionIndex = letters.indexOf(vote);
 
-        // Add vote
-        this.poll.options[optionIndex].names.push(message.sender);
+            // Remove current student vote
+            for (let i = 0; i < this.poll.options.length; i++) {
+                this.poll.options[i].names = this.poll.options[i].names.filter(item => item !== message.sender);
+            }
+
+            // Add vote
+            this.poll.options[optionIndex].names.push(message.sender);
+
+        });
     }
 
     async translator(message) {
