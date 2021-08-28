@@ -39,9 +39,7 @@ const DefaultProgress = () => {
                         <p>Select a question to view students</p>
                     </div>
                     <Button className="mb-2" onClick={getProgress}>Refresh</Button>
-                </div>
-                
-                
+                </div> 
                 <BarObject
                     question=" "
                     options={progress}

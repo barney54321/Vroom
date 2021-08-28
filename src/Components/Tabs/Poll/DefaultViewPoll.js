@@ -19,17 +19,22 @@ const DefaultViewPoll = (props) => {
     const poll = polls[currentPoll];
 
     // need to get these values
-    const options = poll.options;
-    const question = poll.question;
+    let options = poll.options;
+    let question = poll.question;
 
     //  Send JSON body with question and options: {question: "1+1=2", options: ["True", "False"]}
     const launchPoll = () => {
 
+        let optionsWithoutStudents = [];
+        for (let i = 0; i < options.length; i++) {
+            optionsWithoutStudents.push(options[i].option)
+        }
+
         const sendOptions = {
             question: question,
-            options: options
+            options: optionsWithoutStudents
         }
-        axios.post("http://127.0.0.1:8080/launchpoll", {options: sendOptions}).then(res => {
+        axios.post("http://127.0.0.1:8080/launchpoll", sendOptions).then(res => {
             setPollLaunched();
             setUpdate(!update);
             setActivePoll(currentPoll);

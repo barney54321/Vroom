@@ -6,12 +6,12 @@ import { Button, Accordion } from 'react-bootstrap';
 const ViewLessonPlan = () => {
     const {
         lessonPlan, 
-        setLessonPlan,
+        setViewLessonPlan,
     } = useContext(VroomContext);
 
     const clickEdit = () => {
         // update this function 
-        setLessonPlan(null);
+        setViewLessonPlan(false);
     }
 
 
@@ -23,7 +23,7 @@ const ViewLessonPlan = () => {
                 <h4>Lesson Plan</h4>
                 <Button onClick={clickEdit}>Edit</Button>
             </div>
-            <h6>{lessonPlan.title}</h6>
+            <h6>{lessonPlan.name}</h6>
             <Accordion defaultActiveKey="0">
                 {lessonPlan.contents.map((item, index) => <LessonPlanItem index={index} name={item.name} description={item.description} time={item.time}></LessonPlanItem>)}
             </Accordion>

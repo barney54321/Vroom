@@ -7,14 +7,12 @@ import ViewLessonPlan from './ViewLessonPlan'
 const DefaultLessonPlan = () => {
 
     const {
-        lessonPlan,
+        viewLessonPlan,
     } = useContext(VroomContext);
-
-    let page;
     
     return (
         <div>
-            {lessonPlan ? <ViewLessonPlan /> : <BuildLessonPlan />}
+            {viewLessonPlan ? <ViewLessonPlan /> : <BuildLessonPlan />}
         </div>
     )
 }
