@@ -35,7 +35,7 @@ const DefaultProgress = () => {
             <div>
                 <div className="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 className="mt-5">Progress</h4>
+                        <h4>Progress</h4>
                         <p>Select a question to view students</p>
                     </div>
                     <Button className="mb-2" onClick={getProgress}>Refresh</Button>
