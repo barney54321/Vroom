@@ -44,6 +44,7 @@ const BarObject = (props) => {
 
     const handleClick = (index) => {
         setActiveIndex(index)
+        props.setShowStudentsForPoll(true);
     }
     
     return (
