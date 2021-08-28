@@ -34,7 +34,7 @@ class Zoom {
 
         var options = new chrome.Options();
         options.addArguments("--mute-audio");
-        options.addArguments("--headless");
+        // options.addArguments("--headless");
         options.addArguments("--log-level=3");
 
         var builder = new webdriver.Builder();
@@ -531,7 +531,7 @@ class Zoom {
         }
 
         let question = splits[1];
-        question = question.replace("Q", "");
+        question = question.replace("Q", "").replace("q", "");
 
         if (isNaN(question)) {
             await this.sendMessage(message.sender, "Question should be a number (e.g. Q4)");
@@ -549,6 +549,7 @@ class Zoom {
         for (let i = 0; i < this.progress.questions.length; i++) {
             if (this.progress.questions[i].question === questionNumber) {
                 this.progress.questions[i].names.push(message.sender);
+                await this.sendMessage(message.sender, "Progress updated");
                 return;
             }
         }
