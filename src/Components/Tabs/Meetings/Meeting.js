@@ -17,8 +17,8 @@ const Meeting = () => {
         });
     }
     return (
-        <div className="p-1">
-            <h4 className="pt-5">Launch an assistant</h4>
+        <div className="tab-container">
+            <h4>Launch an assistant</h4>
             <Form onSubmit={launch}>
                 <Form.Group>
                     <Form.Label className="mb-2">URL of the zoom meeting</Form.Label>

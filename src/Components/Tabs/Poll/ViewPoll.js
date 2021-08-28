@@ -87,7 +87,7 @@ const ViewPoll = (props) => {
         <div className="tab-container">
             <div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="pt-5">Poll Results</h4>
+                    <h4>Poll Results</h4>
                     <Button className="mt-2" onClick={handleBack}>Back</Button>
                 </div>
                 

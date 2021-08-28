@@ -23,15 +23,15 @@ const OpeningLessonPlan = () => {
     }
 
     return (
-        <div>
+        <div className="tab-container">
             <Form onSubmit={submitForm}>
             <Form.Group>
                 <Form.Label>Some message about lesson plans</Form.Label>
             </Form.Group>
-                <div className="p-1 your-meeting-button">
+                <div className="your-meeting-button">
                     <Button variant="primary" onClick={importPlan}>Import</Button>
                 </div>
-                <div className="p-1 your-meeting-button">
+                <div className="your-meeting-button">
                     <Button variant="primary" onClick={createNew}>Create New</Button>
                 </div>
             </Form>            
