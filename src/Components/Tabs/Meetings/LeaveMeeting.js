@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { VroomContext } from '../../Common/VroomContext';
 import axios from 'axios';
 
 const LeaveMeeting = () => {
+
+    const {
+        setInMeeting,
+        setTutorName,
+        tutorName
+    } = useContext(VroomContext);
+
     const updateName = (event) => {
 
         event.preventDefault();
@@ -13,6 +21,7 @@ const LeaveMeeting = () => {
 
         axios.post("http://127.0.0.1:8080/editname", {name: name}).then(res => {
             console.log(res)
+            setTutorName(name);
         }).catch(err => {
             console.log(err)
         });
@@ -22,6 +31,7 @@ const LeaveMeeting = () => {
         // function to kill bot 
 
         axios.post("http://127.0.0.1:8080/leave").then(res => {
+            setInMeeting(false);
             console.log(res)
         }).catch(err => {
             console.log(err)
@@ -34,7 +44,7 @@ const LeaveMeeting = () => {
                 <Form onSubmit={updateName}>
                     <Form.Group>
                         <Form.Label class="mb-2">Edit your zoom name</Form.Label>
-                        <Form.Control className="mb-3" id="tutor-name" type="text" placeholder="Your exact zoom name"></Form.Control>
+                        <Form.Control className="mb-3" id="tutor-name" type="text" defaultValue={tutorName} placeholder="Your exact zoom name"></Form.Control>
                     </Form.Group>
                 </Form>
                 <Button variant="primary" type="submit" onClick={e => updateName(e)}>Submit</Button>

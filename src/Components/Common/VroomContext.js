@@ -20,6 +20,7 @@ export const VroomContext = createContext({});
 export const VroomContextProvider = (props) => {
 
     const [inMeeting, setInMeeting] = useState(false);
+    const [tutorName, setTutorName] = useState("");
     const [pollPage, setPollPage] = useState("existing");
     const [currentPoll, setCurrentPoll] = useState("");
     const [polls, setPolls] = useState([{
@@ -71,7 +72,9 @@ export const VroomContextProvider = (props) => {
                 setActivePoll,
                 commands,
                 setCommands,
-                getProgress
+                getProgress,
+                tutorName,
+                setTutorName,
             }}
         >
             {props.children}
