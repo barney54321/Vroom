@@ -20,10 +20,13 @@ const ViewLessonPlan = () => {
     console.log(lessonPlan)
     
     return (
-        <div>
-            <h4 className="pt-5">Lesson Plan</h4>
-            <div className="p-1 your-meeting-button">
+        <div className="tab-container">
+            <h4>Lesson Plan</h4>
+            <div className="your-meeting-button">
                 <Button onClick={clickExit}>Exit</Button>
+            </div>
+            <div className="your-meeting-button">
+                <Button onClick={clickStart}>Start</Button>
             </div>
             <h6>{lessonPlan.title}</h6>
             <Accordion defaultActiveKey="0">

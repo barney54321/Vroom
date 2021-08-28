@@ -27,7 +27,7 @@ const ExistingPolls = (props) => {
 
     return (
         <div className="tab-container">
-            <h4 className="pt-5">Existing Polls</h4>
+            <h4>Existing Polls</h4>
             <ListGroup defaultActiveKey="">
            
             {polls.map((poll, index) => (<ExistingPoll key={index} poll={poll} index={index} deletePoll={deletePoll}/>))}

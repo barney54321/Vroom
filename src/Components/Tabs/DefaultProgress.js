@@ -32,15 +32,15 @@ const DefaultProgress = () => {
     }
 
     return (
-        <div className="p-1 tab-container">
+        <div className="tab-container">
             <div>
-                <h4 className="mt-5">Progress</h4>
+                <h4>Progress</h4>
                 <p>Select a question to view students</p>
                 <BarObject question=" " activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
             </div>
             <hr></hr>
             <div className="students"> 
-                {showStudents && <h4>Students</h4>}
+                {showStudents && <h3>Students</h3>}
                 <ListGroup className={showStudents && "mb-3"}>
                     {showStudents && progress.length!== 0 ? progress[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>) : console.log("none")}
                 </ListGroup>

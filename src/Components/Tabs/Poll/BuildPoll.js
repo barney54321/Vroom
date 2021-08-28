@@ -84,15 +84,17 @@ const BuildPoll = (props) => {
     }
 
     return (
-        <div>
+        
+        <div className="tab-container">
+            <h4>New Poll</h4>
             <CustomDropZone callback={importPoll}/>
             <div className="center-columns">
                 <Form className="center-colums w-100">
-                    <div className="form-question">
+                    <div className="pt-2 form-question">
                         <Form.Label className="mb-1">Poll Name</Form.Label>
                         <Form.Control id="poll-name" type="text" placeholder="Enter name" defaultValue={name} />
                     </div>
-                    <div className="form-question">
+                    <div className="pt-2 form-question">
                         <Form.Label className="mb-1">Poll Question</Form.Label>
                         <Form.Control id="poll-question" type="text" placeholder="Enter your question" defaultValue={question} />
                     </div>
@@ -113,11 +115,14 @@ const BuildPoll = (props) => {
                     </div>
                 </Form>
                 <div className="d-flex align-items-start w-100">
-                <Button variant="outline-primary" onClick={handleAdd}>+ OPTION</Button>
+                <Button className="mt-2" variant="outline-primary" onClick={handleAdd}>+ OPTION</Button>
                 </div>
             </div>
-            <Button onClick={handleExit}>Exit</Button>
-            <Button onClick={handleSave}>Save</Button>
+            <div className="pt-3 d-flex justify-content-between align-items-center">
+                <Button onClick={handleExit}>Exit</Button>
+                <Button onClick={handleSave}>Save</Button>
+            </div>
+            
         </div>
 
     )
