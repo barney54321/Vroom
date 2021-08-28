@@ -17,7 +17,9 @@ class Zoom {
         this.run = true;
         this.messageIDs = [];
         this.poll = {};
-        this.progress = {};
+        this.progress = {
+            questions: []
+        };
         this.nowResponse = "Listen";
         this.attendResponse = "https://bit.ly/3yt84NP"
     }
@@ -331,6 +333,8 @@ class Zoom {
             await this.help(message);
         } else if (splits[0] === "!commands") {
             await this.listCommands(message);
+        } else if (splits[0] === "!progress") {
+            await this.updateProgress(message);
         } else {
             console.log("Yes");
         }
@@ -406,23 +410,43 @@ class Zoom {
         await this.sendMessage(message.sender, "!commands - See this list again");
     }
 
+    async updateProgress(message) {
+        let splits = message.text.split(" ");
+
+        if (splits.length === 1) {
+            await this.sendMessage(message.sender, "Make sure you specify what question you're up to");
+            return;
+        }
+
+        let question = splits[1];
+        question = question.replace("Q", "");
+
+        if (isNaN(question)) {
+            await this.sendMessage(message.sender, "Question should be a number (e.g. Q4)");
+            return;
+        }
+
+        let questionNumber = parseInt(question);
+
+        // Remove current student progress
+        for (let i = 0; i < this.progress.questions.length; i++) {
+            this.progress.questions[i].names = this.progress.questions[i].names.filter(item => item !== message.sender);
+        }
+
+        // Set progress
+        for (let i = 0; i < this.progress.questions.length; i++) {
+            if (this.progress.questions[i].question === questionNumber) {
+                this.progress.questions[i].names.push(message.sender);
+                return;
+            }
+        }
+
+        // Question doesn't exist
+        this.progress.questions.push({
+            question: parseInt(question),
+            names: [message.sender]
+        });
+    }
 }
 
 module.exports = { Zoom };
-
-// async function test() {
-//     let zoom = new Zoom();
-//     await zoom.init("https://uni-sydney.zoom.us/j/87089283654", "Vroom");
-//     await sleep(2);
-//     // await zoom.leave();
-//     // await zoom.sendMessage("Samantha Millett", "1");
-//     // await zoom.sendMessage("Lilian Hunt", "2");
-//     // await zoom.sendMessage("Host", "3");
-//     // await zoom.sendMessage("Everyone", "4");
-//     // await zoom.sendMessage("Everyone", "5");
-//     // let messages = await zoom.readMessages();
-//     // console.log(messages);
-//     sleep(100000);
-// }
-
-// test();
