@@ -15,16 +15,18 @@ const Commands = () => {
         });
     }
     return (
-        <div>
-            <h4>Modify Commands</h4>
+        <div className="tab-container">
+            <h4 className="pt-5">Modify Commands</h4>
             <Form onSubmit={submitForm}>
                 <Form.Group>
-                    <Form.Label>!now</Form.Label>
-                    <Form.Control type="text" placeholder="Enter what students should be working on now"></Form.Control>
-                    <Form.Label>!attend</Form.Label>
-                    <Form.Control type="text" placeholder="Enter the attendance link."></Form.Control>
+                    <Form.Label class="mb-2">!now</Form.Label>
+                    <Form.Control className="mb-3" type="text" placeholder="Enter what students should be working on now"></Form.Control>
+                    <Form.Label class="mb-2">!attend</Form.Label>
+                    <Form.Control className="mb-3" type="text" placeholder="Enter the attendance link."></Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                    <div className="p-1 your-meeting-button">
+                        <Button variant="primary" type="submit">Submit</Button>
+                    </div>
             </Form>      
         </div>
     )
