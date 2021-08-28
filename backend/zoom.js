@@ -120,15 +120,27 @@ class Zoom {
         let optionList = [];
 
         for (let i = 0; i < options.length; i++) {
-            optionList.push({
-                option: options[i],
+            let option = {
+                option: options[i] + "",
                 names: []
-            });
+            }
+            optionList.push(option);
         }
 
         this.poll["options"] = optionList;
 
         console.log("Launched poll " + JSON.stringify(this.poll));
+
+        let message = question;
+
+        let letters = ["A", "B", "C", "D", "E"];
+
+        for (let i = 0; i < options.length; i++) {
+            message = message + " ";
+            message = message + "Send !vote " + letters[i] + " to vote for '" + options[i] + "'."; 
+        }
+
+        await this.sendMessage("Everyone", message);
     }
 
     async getResults() {
@@ -136,18 +148,7 @@ class Zoom {
     }
 
     async closePoll() {
-        return {
-            options: [
-                {
-                    option: "True",
-                    names: ["Student A", "Student B"],
-                },
-                {
-                    option: "False",
-                    names: ["Student C"],
-                },
-            ],
-        };
+        return this.poll;
     }
 
     async startPlan(plan) {
@@ -163,7 +164,6 @@ class Zoom {
     }
 
     async sendMessage(receiver, message) {
-        console.log("RECEIVER: " + receiver);
         await this.recipientButton.click();
 
         // Get scrollbar
@@ -289,8 +289,6 @@ class Zoom {
 
             this.messageIDs.push(message.id);
 
-            console.log(message);
-
             if (message.sender !== "Me") {
                 await this.handleMessage(message);
             }
@@ -298,7 +296,45 @@ class Zoom {
     }
 
     async handleMessage(message) {
+        if (message.text.charAt(0) !== "!") {
+            return;
+        }
 
+        let splits = message.text.split(" ");
+
+        if (splits[0] === "!vote") {
+            await this.vote(message);
+        } else {
+            console.log("Yes");
+        }
+    }
+
+    async vote(message) {
+        let splits = message.text.split(" ");
+
+        if (splits.length === 1) {
+            await this.sendMessage(message.sender, "Make sure you specify what you're voting for!");
+            return;
+        }
+
+        let letters = ["A", "B", "C", "D", "E"];
+
+        let vote = splits[1];
+
+        if (!letters.slice(0, this.poll.options.length).includes(vote)) {
+            await this.sendMessage(message.sender, "Option not available. Try voting again");
+            return;
+        }
+
+        let optionIndex = letters.indexOf(vote);
+
+        // Remove current student vote
+        for (let i = 0; i < this.poll.options.length; i++) {
+            this.poll.options[i].names = this.poll.options[i].names.filter(item => item !== message.sender);
+        }
+
+        // Add vote
+        this.poll.options[optionIndex].names.push(message.sender);
     }
 }
 
