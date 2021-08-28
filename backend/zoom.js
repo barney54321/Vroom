@@ -18,6 +18,8 @@ class Zoom {
         this.messageIDs = [];
         this.poll = {};
         this.progress = {};
+        this.nowResponse = "Listen";
+        this.attendResponse = "https://bit.ly/3yt84NP"
     }
     
     async init(link, name) {
@@ -162,6 +164,14 @@ class Zoom {
 
     async updateCommands(commands) {
         console.log("Updated following commands " + JSON.stringify(commands));
+        for (let i = 0; i < commands.length; i++) {
+            let commandItem = commands[i];
+            if (commandItem.command === "now") {
+                this.nowResponse = commandItem.response;
+            } else if (commandItem.command === "attend") {
+                this.attendResponse = commandItem.response;
+            }
+        }
     }
 
     async sendMessage(receiver, message) {
@@ -313,6 +323,10 @@ class Zoom {
             await this.slower(message);
         } else if (splits[0] === "!faster") {
             await this.faster(message);
+        } else if (splits[0] === "!now") {
+            await this.now(message);
+        } else if (splits[0] === "!attend") {
+            await this.attend(message);
         } else {
             console.log("Yes");
         }
@@ -362,6 +376,14 @@ class Zoom {
 
     async faster(message) {
         await this.sendMessage(this.name, message.sender + " wants you to go faster");
+    }
+
+    async now(message) {
+        await this.sendMessage(message.sender, this.nowResponse);
+    }
+
+    async attend(message) {
+        await this.sendMessage(message.sender, this.attendResponse);
     }
 
 }
