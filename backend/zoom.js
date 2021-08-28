@@ -16,6 +16,7 @@ class Zoom {
     constructor() {
         this.run = true;
         this.messageIDs = [];
+        this.messageStrings = [];
         this.poll = null;
         this.lastTimeStamp = null;
         this.progress = {
@@ -390,16 +391,20 @@ class Zoom {
             // Using dodgy method to overcome weird memory issues
             let message = JSON.parse(JSON.stringify(newMessages[i]));
 
-            if (this.messageIDs.includes(message.id) || message.timeNum < this.lastTimeStamp) {
+            let messageStr = message.timeNum + " " + message.sender + ": " + message.text;
+
+            if (this.messageStrings.includes(messageStr)) {
                 continue;
             }
 
             this.messageIDs.push(message.id);
+            this.messageStrings.push(messageStr);
 
             this.lastTimeStamp = message.timeNum;
 
             if (message.sender !== "Me") {
                 await this.handleMessage(message);
+                await sleep(1);
             }
         }
     }
