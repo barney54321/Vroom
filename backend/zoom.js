@@ -17,6 +17,7 @@ class Zoom {
         this.run = true;
         this.messageIDs = [];
         this.poll = null;
+        this.lastTimeStamp = null;
         this.progress = {
             questions: []
         };
@@ -304,6 +305,7 @@ class Zoom {
         let lastSender = "Me";
         let lastRecipient = "Me";
         let lastTime = null;
+        let lastTimeNum = 0;
 
         // Each div stores message and possibly header
         let divs = await listDivs.findElements(By.xpath("*"));
@@ -328,6 +330,16 @@ class Zoom {
                     lastSender = await (await headerNameSpans[0]).getText();
                     lastRecipient = await (await headerNameSpans[2]).getText();
                     lastTime = await this.driver.executeScript("return arguments[0].innerHTML", headerSpan);
+
+                    let hours = parseInt(lastTime.substring(0, 2));
+                    let minutes = parseInt(lastTime.substring(3, 5));
+                    let am = lastTime.includes("AM");
+
+                    lastTimeNum = hours * 60 + minutes;
+                    
+                    if (!am) {
+                        lastTimeNum += 12 * 60;
+                    }
                 }
 
                 let messageHalf = children[children.length - 1];
@@ -349,7 +361,8 @@ class Zoom {
                     text: messageText,
                     sender: lastSender,
                     recipient: lastRecipient,
-                    time: lastTime
+                    time: lastTime,
+                    timeNum: lastTimeNum
                 }
 
                 res.push(message);
@@ -379,11 +392,13 @@ class Zoom {
             // Using dodgy method to overcome weird memory issues
             let message = JSON.parse(JSON.stringify(newMessages[i]));
 
-            if (this.messageIDs.includes(message.id)) {
+            if (this.messageIDs.includes(message.id) || message.timeNum < this.lastTimeStamp) {
                 continue;
             }
 
             this.messageIDs.push(message.id);
+
+            this.lastTimeStamp = message.timeNum;
 
             if (message.sender !== "Me") {
                 await this.handleMessage(message);
