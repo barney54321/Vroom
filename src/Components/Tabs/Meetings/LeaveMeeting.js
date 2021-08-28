@@ -28,17 +28,23 @@ const LeaveMeeting = () => {
         });
     }
     return (
-        <div>
-            <h4>Your Meeting</h4>
-            <Form onSubmit={updateName}>
-                <Form.Group>
-                    <Form.Label>Edit your zoom name</Form.Label>
-                    <Form.Control id="tutor-name" type="text" placeholder="Your exact zoom name"></Form.Control>
-                </Form.Group>
-            </Form>
-            <Button variant="primary" type="submit" onClick={e => updateName(e)}>Submit</Button>
-            <Button variant="danger" onClick={killBot}>Kill bot</Button>
+        <div className="tab-container">
+            <div className="p-1 your-meeting">
+                <h4 className="pt-5">Your Meeting</h4>
+                <Form onSubmit={updateName}>
+                    <Form.Group>
+                        <Form.Label class="mb-2">Edit your zoom name</Form.Label>
+                        <Form.Control className="mb-3" id="tutor-name" type="text" placeholder="Your exact zoom name"></Form.Control>
+                    </Form.Group>
+                </Form>
+                <Button variant="primary" type="submit" onClick={e => updateName(e)}>Submit</Button>
+
+            </div>
+            <div className="p-1 your-meeting-button">
+                <Button variant="danger" onClick={killBot}>Kill bot</Button>
+            </div>
         </div>
+        
     )
 }
 

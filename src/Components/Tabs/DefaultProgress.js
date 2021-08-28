@@ -6,7 +6,7 @@ import axios from "axios";
 
 const DefaultProgress = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [showStudents, setShowStudents] = useState(true);
+    const [showStudents, setShowStudents] = useState(false);
     
     const {
         setProgress,
@@ -19,6 +19,11 @@ const DefaultProgress = () => {
         // refresh button 
         axios.get("http://127.0.0.1:8080/getprogress").then(res => {
             setProgress(res.data.questions)
+
+            // Check logic on whether to show students or not 
+            if (res.data.questions) {
+                setShowStudents(true);
+            }
         }).catch(err => {
             console.log(err)
         });
@@ -27,19 +32,20 @@ const DefaultProgress = () => {
     }
 
     return (
-        <div>
+        <div className="p-1 tab-container">
             <div>
-                <h4>Progress</h4>
+                <h4 className="mt-5">Progress</h4>
                 <p>Select a question to view students</p>
                 <BarObject question=" " activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
             </div>
+            <hr></hr>
             <div className="students"> 
                 {showStudents && <h4>Students</h4>}
-                <ListGroup>
+                <ListGroup className={showStudents && "mb-3"}>
                     {showStudents && progress.length!== 0 ? progress[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>) : console.log("none")}
                 </ListGroup>
             </div>
-            <Button onClick={getProgress}>Refresh</Button>
+            <Button className="mb-5" onClick={getProgress}>Refresh</Button>
         </div>
         
     )
