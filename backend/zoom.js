@@ -327,6 +327,8 @@ class Zoom {
             await this.now(message);
         } else if (splits[0] === "!attend") {
             await this.attend(message);
+        } else if (splits[0] === "!help") {
+            await this.help(message);
         } else {
             console.log("Yes");
         }
@@ -372,6 +374,10 @@ class Zoom {
 
     async slower(message) {
         await this.sendMessage(this.name, message.sender + " wants you to go slower");
+    }
+
+    async help(message) {
+        await this.sendMessage(this.name, message.sender + " wants help for " + message.text.substring(6));
     }
 
     async faster(message) {
