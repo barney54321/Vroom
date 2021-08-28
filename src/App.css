@@ -48,13 +48,13 @@
   width: 100%
 }
 
-.nav-link.active.custom-nav {
+.nav-link.active.custom-nav.nav-pills {
   background-color: #07367b;
   font-weight: bold;
 }
 
 .nav-link.custom-nav {
-  background-color: #0d6efd;
+  /* background-color: #0d6efd; */
   color: white;
   margin: 5px 10px;
 }
@@ -209,4 +209,8 @@ h4 {
 
 .side-tabs.col {
   max-width: 230px;
+}
+
+body {
+  overflow-y: hidden;
 }
