@@ -35,7 +35,6 @@ const ViewPoll = (props) => {
 
     const isActive = currentPoll === activePoll;
     
-    //const poll = [{question: "q1", names: ["amy", "bob"], value: 90}, {question: "q2", names: ["caro", "db"], value: 90}]
     const poll = polls[currentPoll];
 
     // need to get these values
@@ -63,7 +62,8 @@ const ViewPoll = (props) => {
         axios.post("http://127.0.0.1:8080/closepoll").then(res => {
             const copy = [...polls];
             copy[currentPoll].options = res.data.options
-            setPolls(copy)
+            setPolls(copy);
+            setActivePoll(null);
         }).catch(err => {
             console.log(err)
         });
@@ -78,6 +78,10 @@ const ViewPoll = (props) => {
         setPollPage("existing")
     }
 
+    const launchButton = <Button onClick={props.launchPoll}>{poll.hasLaunched ? "Relaunch" : "Launch"}</Button>;
+
+    const actionButton = isActive ? <Button variant="danger" onClick={closePoll}>Close Poll</Button> : launchButton;
+        
 
     return (
         <div className="tab-container">
@@ -97,7 +101,7 @@ const ViewPoll = (props) => {
                     {showStudentsForPoll && poll[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
             </div>
-            <Button variant="danger" onClick={closePoll}>Close Poll</Button>
+            {actionButton}
             <Button onClick={refresh}>Refresh</Button>
             <Button onClick={createNewPoll}>+ New Poll</Button>
             <Button onClick={handleBack}>Back</Button>
