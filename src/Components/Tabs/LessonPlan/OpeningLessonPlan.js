@@ -28,9 +28,12 @@ const OpeningLessonPlan = () => {
             <Form.Group>
                 <Form.Label>Some message about lesson plans</Form.Label>
             </Form.Group>
-                
-                <Button variant="primary" onClick={importPlan}>Import</Button>
-                <Button variant="primary" onClick={createNew}>Create New</Button>
+                <div className="p-1 your-meeting-button">
+                    <Button variant="primary" onClick={importPlan}>Import</Button>
+                </div>
+                <div className="p-1 your-meeting-button">
+                    <Button variant="primary" onClick={createNew}>Create New</Button>
+                </div>
             </Form>            
         </div>
     )
