@@ -34,7 +34,8 @@ const BarObject = (props) => {
                 sum = sum + options[i].names.length;
             }
             for (let i =0; i < options.length; i++) {
-                values.push({name: options[i].option, value: options[i].names.length/sum*100})
+                let percentage = sum === 0 ? 0: options[i].names.length/sum*100;
+                values.push({name: options[i].option, value: percentage})
             }
         }
         return sum;
