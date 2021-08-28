@@ -22,7 +22,7 @@ Poll
 
 const ViewPoll = (props) => {
     const [activeIndex, setActiveIndex] = useState(null);
-    const [showStudentsForPoll, setShowStudentsForPoll] = useState(false);
+    const [showStudents, setShowStudents] = useState(false);
 
     const {
         setPollPage,
@@ -45,7 +45,7 @@ const ViewPoll = (props) => {
     if (activeIndex !== null && poll.options[activeIndex].names) {
         students = poll.options[activeIndex].names
     }
-    
+
     const getResults = () => {
         axios.get("http://127.0.0.1:8080/results").then(res => {
             const copy = [...polls];
@@ -86,7 +86,7 @@ const ViewPoll = (props) => {
 
     const actionButton = isActive ? <Button variant="danger" onClick={closePoll}>Close Poll</Button> : launchButton;
 
-    const studentsInfo =  showStudentsForPoll ?
+    const studentsInfo =  showStudents ?
         <div className="students"> 
             <hr></hr>
             <h4>Students</h4>
@@ -111,7 +111,7 @@ const ViewPoll = (props) => {
                     question={question}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
-                    setShowStudentsForPoll={setShowStudentsForPoll}
+                    setShowStudents={setShowStudents}
                 />
             </div>
            {studentsInfo}
