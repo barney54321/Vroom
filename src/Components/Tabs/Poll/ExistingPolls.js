@@ -20,9 +20,7 @@ const ExistingPolls = (props) => {
     }
     
     const addPoll = () => {
-        setPollPage("build")
-        console.log("add poll clicked");
-        
+        setPollPage("build")        
     }
 
     return (

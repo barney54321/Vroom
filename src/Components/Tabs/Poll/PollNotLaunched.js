@@ -42,15 +42,14 @@ const PollNotLaunched = (props) => {
 
     return (
         <div className="tab-container">
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-4">
                 <h4>Your Poll</h4>
                 <Button onClick={handleBack}>Back</Button>  
             </div>
             
             <PollBarObject options={options} question={question}></PollBarObject>
-            <div className="mt-3 d-flex justify-content-between">
+            <div className="w-100 mt-4 d-flex justify-content-center">
                 <Button onClick={props.launchPoll} n>Launch Poll</Button>
-                <Button onClick={createNewPoll}>+ New Poll</Button>
             </div>
         </div>
     )

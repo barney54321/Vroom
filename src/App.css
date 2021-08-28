@@ -20,10 +20,10 @@
 }
 
 .poll-result {
-  border-width: 2px;
   overflow: hidden;
   height: 35px;
   margin-top: 15px;
+  width: 500px;
 }
 
 .color-result {
@@ -190,7 +190,7 @@ h4 {
 }
 
 .name-submit.form-control {
-  width: 357px;
+  width: 380px;
   margin-right: 10px;
 }
 
@@ -215,4 +215,13 @@ h4 {
 
 body {
   overflow-y: hidden;
+}
+
+/* "d-flex justify-content-end align-items-center your-meeting-button" */
+.build-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 15px;
+  margin-top: 5px;
 }

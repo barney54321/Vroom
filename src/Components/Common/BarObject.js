@@ -23,9 +23,13 @@ const BarObject = (props) => {
     // let question = props.question == null ? "What's better?" : props.question;
     // let votes = props.votes == null ? false : props.votes;
 
-    let options =  props.options;
+    let options =  props.options && props.showVotes === false ? props.options.sort((a, b) => {
+        return a.question > b.question ? 1 : -1
+     }) : props.options;
     let question = props.question;
     let values = [];
+
+    console.log("options", options)
 
     const getVotes = () => {
         let sum = 0;
@@ -48,12 +52,10 @@ const BarObject = (props) => {
         setActiveIndex(index)
         props.setShowStudents(true);
     }
-
-    console.log("values", values)
     
     return (
-        <div>
-            <p>{question}</p>
+        <div className="d-flex flex-column align-items-center w-100">
+            <p className="mb-0">{question}</p>
             {values.map((result, index) => (
                 <PercentageBar 
                     index={index}
