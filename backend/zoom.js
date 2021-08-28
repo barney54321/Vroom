@@ -329,6 +329,8 @@ class Zoom {
             await this.attend(message);
         } else if (splits[0] === "!help") {
             await this.help(message);
+        } else if (splits[0] === "!commands") {
+            await this.listCommands(message);
         } else {
             console.log("Yes");
         }
@@ -390,6 +392,18 @@ class Zoom {
 
     async attend(message) {
         await this.sendMessage(message.sender, this.attendResponse);
+    }
+
+    async listCommands(message) {
+        await this.sendMessage(message.sender, "!now - Find out what's happening now");
+        await this.sendMessage(message.sender, "!progress Q1 - Update which question you are up to");
+        await this.sendMessage(message.sender, "!attend - Get the attendance link");
+        await this.sendMessage(message.sender, "!help Q1 - Ask for help for a specific question");
+        await this.sendMessage(message.sender, "!slower - Get the tutor to slow down");
+        await this.sendMessage(message.sender, "!faster - Get the tutor to go faster");
+        await this.sendMessage(message.sender, "!anon [message] - Send an anonymous message to the class");
+        await this.sendMessage(message.sender, "!translate [text] - Translate text to English");
+        await this.sendMessage(message.sender, "!commands - See this list again");
     }
 
 }
