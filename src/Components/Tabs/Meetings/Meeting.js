@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { VroomContext } from '../../Common/VroomContext';
 import axios from "axios";
 
 const Meeting = () => {
+
+    const {
+        setInMeeting
+    } = useContext(VroomContext);
+
     const launch = (event) => {
         event.preventDefault();
 
@@ -12,6 +18,7 @@ const Meeting = () => {
 
         axios.post("http://127.0.0.1:8080/join", {name: name, url: url}).then(res => {
             console.log(res)
+            setInMeeting(true);
         }).catch(err => {
             console.log(err)
         });
