@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Form } from 'react-bootstrap';
+import React, { useState, useContext } from 'react'
+import { ToastContainer, Toast, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ import { VroomContext } from '../Common/VroomContext';
 
 
 const Commands = () => {
+    const [showToast, setShowToast] = useState(false);
 
     const {
         commands,
@@ -26,6 +27,7 @@ const Commands = () => {
         ]
         axios.post("http://127.0.0.1:8080/updatecommands", {commands: newCommands}).then(res => {
             setCommands(newCommands)
+            setShowToast(true)
         }).catch(err => {
             console.log(err)
         });
@@ -43,7 +45,12 @@ const Commands = () => {
                 <div className="your-meeting-button">
                      <Button variant="primary" type="submit" onClick={e => submitForm(e)}>Submit</Button>
                 </div>
-            </Form>      
+            </Form> 
+            <ToastContainer style={{width: "fit-content"}} position="top-end" className="p-3" >
+                <Toast bg='primary' className="my-toast" onClose={() => setShowToast(false)} show={showToast} delay={1000} autohide>
+                    <Toast.Body>Saved!</Toast.Body>
+                </Toast>
+            </ToastContainer>     
         </div>
     )
 }
