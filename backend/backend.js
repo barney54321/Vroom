@@ -19,11 +19,15 @@ const zoom = args === "test" ? new Dummy() : new Zoom();
     Returns 200 on success, 400 on failure
 */
 app.post("/join", async (req, res) => {
-    let body = req.body;
-    let url = body.url;
-    let name = body.name;
-    await zoom.init(url, name);
-    res.sendStatus(200);
+    try {
+        let body = req.body;
+        let url = body.url;
+        let name = body.name;
+        await zoom.init(url, name);
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -32,8 +36,12 @@ app.post("/join", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/leave", async (req, res) => {
-    await zoom.leave();
-    res.sendStatus(200);
+    try {
+        await zoom.leave();
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -42,10 +50,14 @@ app.post("/leave", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/editname", async (req, res) => {
-    let body = req.body;
-    let name = body.name;
-    await zoom.editName(name);
-    res.sendStatus(200);
+    try {
+        let body = req.body;
+        let name = body.name;
+        await zoom.editName(name);
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -53,8 +65,12 @@ app.post("/editname", async (req, res) => {
     Returns progress of students: {questions: [{question: 1, names: ["Name 1", "Name 2"]}, {question: 2, names: ["Name 3"]}]}
 */
 app.get("/getprogress", async (req, res) => {
-    let progress = await zoom.getProgress();
-    res.send(progress);
+    try {
+        let progress = await zoom.getProgress();
+        res.send(progress);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -63,11 +79,15 @@ app.get("/getprogress", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/launchpoll", async (req, res) => {
-    let body = req.body;
-    let question = body.question;
-    let options = body.options;
-    await zoom.launchPoll(question, options);
-    res.sendStatus(200);
+    try {
+        let body = req.body;
+        let question = body.question;
+        let options = body.options;
+        await zoom.launchPoll(question, options);
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -75,8 +95,12 @@ app.post("/launchpoll", async (req, res) => {
     Returns results from students: {options: [{option: "True", names: ["Student A", "Student B"]}, {option: "False", names: ["Student C"]}]}
 */
 app.get("/results", async (req, res) => {
-    let results = await zoom.getResults();
-    res.send(results);
+    try {
+        let results = await zoom.getResults();
+        res.send(results);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -85,8 +109,12 @@ app.get("/results", async (req, res) => {
     Returns results in same format as /RESULTS
 */
 app.post("/closepoll", async (req, res) => {
-    let results = await zoom.closePoll();
-    res.send(results);
+    try {
+        let results = await zoom.closePoll();
+        res.send(results);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -95,10 +123,14 @@ app.post("/closepoll", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/startplan", async (req, res) => {
-    let body = req.body;
-    let sections = body.sections;
-    await zoom.startPlan(sections);
-    res.sendStatus(200);
+    try {
+        let body = req.body;
+        let sections = body.sections;
+        await zoom.startPlan(sections);
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -107,8 +139,12 @@ app.post("/startplan", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/stopplan", async (req, res) => {
-    await zoom.stopPlan();
-    res.sendStatus(200);
+    try {
+        await zoom.stopPlan();
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 /*
@@ -117,10 +153,14 @@ app.post("/stopplan", async (req, res) => {
     Returns 200 on success, 400 on failure
 */
 app.post("/updatecommands", async (req, res) => {
-    let body = req.body;
-    let commands = body.commands;
-    await zoom.updateCommands(commands);
-    res.sendStatus(200);
+    try {
+        let body = req.body;
+        let commands = body.commands;
+        await zoom.updateCommands(commands);
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 app.listen(port, () => {
