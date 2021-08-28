@@ -58,7 +58,7 @@ const BuildLessonPlan = (props) => {
         const lessonName = document.getElementById("lesson-name").value;
         setLessonPlan({
             name: lessonName,
-            contents: contents
+            contents: copy
         })
         setViewLessonPlan(true);
     }
