@@ -22,26 +22,29 @@ const PollNotLaunched = (props) => {
         setPollPage,
         currentPoll,
         activePoll,
-        setActivePoll,
         polls,
-        setPolls
     } = useContext(VroomContext);
-
-    const isActive = currentPoll === activePoll;
     
     const poll = polls[currentPoll];
 
     // need to get these values
     const options = poll.options;
     const question = poll.question;
+    console.log(poll)
 
     const createNewPoll = () => {
         setPollPage("build");
     }
+
+    const handleBack = () => {
+        setPollPage("existing")
+    }
+
     return (
         <div className="tab-container">
-            <h4>Your Poll</h4>
-            <PollBarObject></PollBarObject>
+            <h4 className="pt-5">Your Poll</h4>
+            <Button className="mt-2" onClick={handleBack}>Back</Button>
+            <PollBarObject options={options} question={question}></PollBarObject>
             <div className="mt-3 d-flex justify-content-between">
                 <Button onClick={props.launchPoll} n>Launch Poll</Button>
                 <Button onClick={createNewPoll}>+ New Poll</Button>

@@ -21,8 +21,8 @@ Poll
 */
 
 const ViewPoll = (props) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [showStudentsForPoll] = useState(true);
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [showStudents, setShowStudents] = useState(false);
 
     const {
         setPollPage,
@@ -40,6 +40,11 @@ const ViewPoll = (props) => {
     // need to get these values
     const options = poll.options;
     const question = poll.question;
+
+    let students = []
+    if (activeIndex !== null && poll.options[activeIndex].names) {
+        students = poll.options[activeIndex].names
+    }
 
     const getResults = () => {
         axios.get("http://127.0.0.1:8080/results").then(res => {
@@ -70,7 +75,6 @@ const ViewPoll = (props) => {
     }
 
     const createNewPoll = () => {
-        // close poll
         setPollPage("build")
     }
 
@@ -81,6 +85,16 @@ const ViewPoll = (props) => {
     const launchButton = <Button onClick={props.launchPoll}>{poll.hasLaunched ? "Relaunch" : "Launch"}</Button>;
 
     const actionButton = isActive ? <Button variant="danger" onClick={closePoll}>Close Poll</Button> : launchButton;
+
+    const studentsInfo =  showStudents ?
+        <div className="students"> 
+            <hr></hr>
+            <h4>Students</h4>
+            <ListGroup>
+                {students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+            </ListGroup>
+        </div>
+        : console.log();
         
     
     return (
@@ -96,17 +110,11 @@ const ViewPoll = (props) => {
                     options={options}
                     question={question}
                     activeIndex={activeIndex}
-                    setActiveIndex={setActiveIndex}>
-                </BarObject>
+                    setActiveIndex={setActiveIndex}
+                    setShowStudents={setShowStudents}
+                />
             </div>
-            <div className="students"> 
-                {showStudentsForPoll && <hr></hr>}
-                {showStudentsForPoll && <h4>Students</h4>}
-                <ListGroup>
-                    
-                    {showStudentsForPoll && poll.options[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
-                </ListGroup>
-            </div>
+           {studentsInfo}
             <div className="mt-3 d-flex justify-content-between">
                 {actionButton}
                 <Button onClick={refresh}>Refresh</Button>

@@ -1,6 +1,21 @@
 import React, {useState, createContext } from "react";
+import axios from "axios";
 
 export const VroomContext = createContext({});
+
+/*
+[{
+    name: "Poll 1",
+    question: "What project is more awesome?",
+    options: [ 
+        {option: "Vroom",
+        names: ["amy", "bob"]},
+        {option: "Vroom but in blue",
+        names: ["steven", "someone"]}
+    ],
+    hasLaunched: false   
+}]
+*/
 
 export const VroomContextProvider = (props) => {
 
@@ -19,9 +34,22 @@ export const VroomContextProvider = (props) => {
         hasLaunched: false   
     }])
     const [lessonPlan, setLessonPlan] = useState({name: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
-    const [progress, setProgress] = useState([]);
+    const [progress, setProgress] = useState(null);
     const [activePoll, setActivePoll] = useState(null);
     const [commands, setCommands] = useState([{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}])
+
+    const getProgress = () => {
+        // refresh button 
+        axios.get("http://127.0.0.1:8080/getprogress").then(res => {
+            setProgress(res.data.questions)
+        }).catch(err => {
+            console.log(err)
+        });
+    }
+
+    if (progress === null) {
+        getProgress();
+    }
 
 
     return (
@@ -42,7 +70,8 @@ export const VroomContextProvider = (props) => {
                 activePoll,
                 setActivePoll,
                 commands,
-                setCommands
+                setCommands,
+                getProgress
             }}
         >
             {props.children}
