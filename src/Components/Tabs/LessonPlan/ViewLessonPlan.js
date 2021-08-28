@@ -6,12 +6,12 @@ import { Button, Accordion } from 'react-bootstrap';
 const ViewLessonPlan = () => {
     const {
         lessonPlan, 
-        setLessonPlan,
+        setViewLessonPlan,
     } = useContext(VroomContext);
 
     const clickEdit = () => {
         // update this function 
-        setLessonPlan(null);
+        setViewLessonPlan(false);
     }
 
 

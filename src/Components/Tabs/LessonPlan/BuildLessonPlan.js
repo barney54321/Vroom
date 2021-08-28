@@ -7,16 +7,14 @@ import CustomDropZone from "../../Common/CustomDropZone";
 
 const BuildLessonPlan = (props) => {
 
-    const [contents, setcontents]  = useState([{
-        name: "",
-        time: "",
-        description: ""
-    }])
-    const [name, setName] = useState("");
-
     const {
         setLessonPlan,
+        lessonPlan,
+        setViewLessonPlan
     } = useContext(VroomContext);
+
+    const [contents, setcontents]  = useState(lessonPlan.contents)
+    const [name, setName] = useState(lessonPlan.name);
 
     const handleAdd = () => {
         if (contents.length < 5) {
@@ -58,11 +56,21 @@ const BuildLessonPlan = (props) => {
             })
         }
         const lessonName = document.getElementById("lesson-name").value;
-        console.log("contents", copy)
         setLessonPlan({
             name: lessonName,
             contents: contents
         })
+        setViewLessonPlan(true);
+    }
+
+    const handleClear = () => {
+        setcontents([
+                {name: "",
+                    description: "",
+                    time:""
+                }
+            ]);
+        setName("");
     }
 
     const importLessonPlan = (json) => {
@@ -117,7 +125,8 @@ const BuildLessonPlan = (props) => {
                 </div>
             </div>
             <div className="d-flex justify-content-end align-items-center your-meeting-button">
-                    <Button onClick={handleSave}>Save</Button>
+                <Button onClick={handleClear}>clear</Button>
+                <Button onClick={handleSave}>Save</Button>
             </div>
         </div>
     )
