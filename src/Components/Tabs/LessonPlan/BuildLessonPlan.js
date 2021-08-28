@@ -83,14 +83,16 @@ const BuildLessonPlan = (props) => {
                         {contents.map((contents, index) => (
                             <div className="d-flex flex-column" key={"overall"+index+contents.name}>
                                 <div className="d-flex">
-                                    <Form.Label className="mb-1">Section name</Form.Label>
+                                    <Form.Label className="mb-1">Section Name</Form.Label>
                                     <Form.Control
+                                        className="mb-3"
                                         id={"contents-name" + index}
                                         placeholder="contents name"
                                         defaultValue={contents.name}
                                     />
                                     <Form.Label className="mb-1">Time</Form.Label>
                                     <Form.Control
+                                        className="mb-3"
                                         id={"contents-time" + index}
                                         placeholder="10"
                                         defaultValue={contents.time}
@@ -99,6 +101,7 @@ const BuildLessonPlan = (props) => {
                                 </div>
                                 <Form.Label className="mb-1">Teaching Notes</Form.Label>
                                 <Form.Control
+                                    className="mb-3"
                                     id={"contents-description" + index}
                                     placeholder="Description"
                                     defaultValue={contents.description}
