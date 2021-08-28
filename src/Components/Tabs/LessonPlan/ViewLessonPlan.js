@@ -9,25 +9,19 @@ const ViewLessonPlan = () => {
         setLessonPlan,
     } = useContext(VroomContext);
 
-    const clickExit = () => {
+    const clickEdit = () => {
+        // update this function 
         setLessonPlan(null);
     }
 
-    const clickStart = () => {
-        console.log("Start");
-    }
 
     console.log(lessonPlan)
     
     return (
         <div className="tab-container">
-            <h4>Lesson Plan</h4>
-            <div className="your-meeting-button">
-                <Button onClick={clickExit}>Exit</Button>
-            </div>
-
-            <div className="your-meeting-button">
-                <Button onClick={clickStart}>Start</Button>
+            <div className="d-flex justify-content-between align-items-center">
+                <h4>Lesson Plan</h4>
+                <Button onClick={clickEdit}>Edit</Button>
             </div>
             <h6>{lessonPlan.title}</h6>
             <Accordion defaultActiveKey="0">
