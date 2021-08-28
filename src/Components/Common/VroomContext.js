@@ -15,12 +15,14 @@ export const VroomContextProvider = (props) => {
             names: ["amy", "bob"]},
             {option: "Vroom but in blue",
             names: ["steven", "someone"]}
-        ]   
+        ],
+        hasLaunched: false   
     }])
     const [lessonPlan, setLessonPlan] = useState({title: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
     const [lessonPlanPage, setLessonPlanPage] = useState("build");
     const [progress, setProgress] = useState([]);
     const [activePoll, setActivePoll] = useState(null);
+    const [commands, setCommands] = useState([{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}])
 
 
     return (
@@ -42,6 +44,8 @@ export const VroomContextProvider = (props) => {
                 setProgress,
                 activePoll,
                 setActivePoll,
+                commands,
+                setCommands
             }}
         >
             {props.children}

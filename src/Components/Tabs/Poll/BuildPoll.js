@@ -46,7 +46,8 @@ const BuildPoll = (props) => {
             name: name,
             question: question,
             options: options,
-            names: null
+            names: null,
+            hasLaunched: false
         }]
         setPolls(copy)
     }

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import BuildPoll from './BuildPoll';
 import ExistingPolls from './ExistingPolls'
-import ViewPoll from './ViewPoll'
+import DefaultViewPoll from './DefaultViewPoll'
 import { VroomContext } from '../../Common/VroomContext';
 
 
@@ -18,7 +18,7 @@ const DefaultPollPage = (props) => {
     } else if (pollPage === "build") {
         page = <BuildPoll />;
     } else if (pollPage === "view") {
-        page = <ViewPoll />;
+        page = <DefaultViewPoll />;
     }
 
     return (
