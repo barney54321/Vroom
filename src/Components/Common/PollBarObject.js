@@ -7,8 +7,8 @@ const PollBarObject = (props) => {
     let question = props.question;
 
     return (
-        <div>
-            <p>{question}</p>
+        <div className="d-flex flex-column align-items-center w-100">
+            <p className="mb-0">{question}</p>
             {options.map((option, index) => (
                 <Bar 
                     index={index}

@@ -51,6 +51,17 @@ const BuildPoll = (props) => {
     }
 
     const handleSave = () => {
+        const copy = getContents();
+        setPolls(copy);
+        setCurrentPoll(copy.length-1);
+        setPollPage("view");
+    }
+
+    const getContents = () => {
+
+        const name = document.getElementById("poll-name").value;
+        const question = document.getElementById("poll-question").value;
+
         const copyOptions = [];
         for (let i = 0; i < options.length; i++) {
             const option = {
@@ -59,18 +70,32 @@ const BuildPoll = (props) => {
             }
             copyOptions.push(option);
         }
-        const name = document.getElementById("poll-name").value;
-        const question = document.getElementById("poll-question").value;
+        
         const copy = [...polls, {
             name: name,
             question: question,
             options: copyOptions,
             hasLaunched: false
         }]
-        setPolls(copy);
-        setCurrentPoll(copy.length-1);
-        setPollPage("view");
-        console.log()
+        return copy;
+    }
+
+    const getContentsNoNames = () => {
+        const name = document.getElementById("poll-name").value;
+        const question = document.getElementById("poll-question").value;
+
+        const copyOptions = [];
+        for (let i = 0; i < options.length; i++) {
+            copyOptions.push(document.getElementById("option" + i).value);
+        }
+        
+        const poll = {
+            name: name,
+            question: question,
+            options: copyOptions,
+            hasLaunched: false
+        }
+        return poll;
     }
 
     const importPoll = (json) => {
@@ -81,6 +106,21 @@ const BuildPoll = (props) => {
 
     const handleExit = () => {
         setPollPage("existing")
+    }
+
+    const handleExport = () => {
+        const poll = getContentsNoNames();
+        const element = document.createElement('a');
+        element.setAttribute(
+            'href',
+            'data:json/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(poll))
+        )
+        const filename = poll.name + ".json"
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.append(element);
+        element.click();
+        document.body.removeChild(element);
     }
 
     return (
@@ -118,8 +158,9 @@ const BuildPoll = (props) => {
                 <Button className="mt-2" variant="outline-primary" onClick={handleAdd}>+ OPTION</Button>
                 </div>
             </div>
-            <div className="pt-3 d-flex justify-content-between align-items-center">
-                <Button onClick={handleExit}>Exit</Button>
+            <div className="build-buttons your-meeting-button">
+                <Button variant="danger" className="me-2" onClick={handleExit}> Exit </Button>
+                <Button variant="secondary" className="me-2" onClick={handleExport}>Export</Button>
                 <Button onClick={handleSave}>Save</Button>
             </div>
             

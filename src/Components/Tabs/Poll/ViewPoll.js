@@ -89,23 +89,22 @@ const ViewPoll = (props) => {
     const studentsInfo =  showStudents ?
         <div className="students"> 
             <hr></hr>
-            <h4>Students</h4>
+            <h4 style={{marginTop: -20}}>Students</h4>
             <ListGroup>
                 {students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
             </ListGroup>
         </div>
         : console.log();
         
+        const studentMessage = <p>Select an answer to view students</p>;
     
     return (
         <div className="tab-container">
             <div>
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center mb-4">
                     <h4>Poll Results</h4>
                     <Button className="mt-2" onClick={handleBack}>Back</Button>
                 </div>
-                
-                <p>Select an answer to view students</p>
                 <BarObject
                     options={options}
                     question={question}
@@ -114,13 +113,11 @@ const ViewPoll = (props) => {
                     setShowStudents={setShowStudents}
                 />
             </div>
-           {studentsInfo}
-            <div className="mt-3 d-flex justify-content-between">
-                {actionButton}
-                <Button onClick={refresh}>Refresh</Button>
-                <Button onClick={createNewPoll}>+ New Poll</Button>
-                
+            <div className="mt-3 d-flex justify-content-end">
+                <Button className="me-2" onClick={refresh}>Refresh</Button> 
+                {actionButton}               
             </div>
+            {studentsInfo}
             
         </div>
         
