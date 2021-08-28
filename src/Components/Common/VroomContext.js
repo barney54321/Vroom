@@ -28,9 +28,9 @@ export const VroomContextProvider = (props) => {
         question: "What project is more awesome?",
         options: [ 
             {option: "Vroom",
-            names: ["amy", "bob"]},
+            names: []},
             {option: "Vroom but in blue",
-            names: ["steven", "someone"]}
+            names: []}
         ],
         hasLaunched: false   
     }])

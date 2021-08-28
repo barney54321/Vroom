@@ -23,12 +23,14 @@ const ExistingPolls = (props) => {
         setPollPage("build")        
     }
 
+    const pollsObjects = polls.map((poll, index) => (<ExistingPoll key={index} poll={poll} index={index} deletePoll={deletePoll}/>));
+
     return (
         <div className="tab-container">
             <h4>Existing Polls</h4>
             <ListGroup defaultActiveKey="">
            
-            {polls.map((poll, index) => (<ExistingPoll key={index} poll={poll} index={index} deletePoll={deletePoll}/>))}
+            {polls.length > 0 ? pollsObjects : <p>You currently have no polls</p>}
         
             </ListGroup>
             <Button className="mt-3" variant="primary" onClick={addPoll}>Add Poll</Button>
