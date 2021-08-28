@@ -31,7 +31,7 @@ const DefaultProgress = () => {
     : console.log();
 
     return (
-        <div className="p-1 tab-container">
+        <div className="tab-container">
             <div>
                 <div className="d-flex justify-content-between align-items-center">
                     <div>

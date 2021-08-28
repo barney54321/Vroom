@@ -32,7 +32,7 @@ const Commands = () => {
     }
     return (
         <div className="tab-container">
-            <h4 className="pt-5">Modify Commands</h4>
+            <h4>Modify Commands</h4>
             <Form onSubmit={submitForm}>
                 <Form.Group>
                     <Form.Label className="mb-2">!now</Form.Label>
@@ -40,7 +40,7 @@ const Commands = () => {
                     <Form.Label className="mb-2">!attend</Form.Label>
                     <Form.Control className="mb-3" id="attend-command" type="text" defaultValue={commands[1].response} placeholder="Enter the attendance link."></Form.Control>
                 </Form.Group>
-                <div className="p-1 your-meeting-button">
+                <div className="your-meeting-button">
                      <Button variant="primary" type="submit" onClick={e => submitForm(e)}>Submit</Button>
                 </div>
             </Form>      

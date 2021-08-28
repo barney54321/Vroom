@@ -29,8 +29,8 @@ const LeaveMeeting = () => {
     }
     return (
         <div className="tab-container">
-            <div className="p-1 your-meeting">
-                <h4 className="pt-5">Your Meeting</h4>
+            <div className="your-meeting">
+                <h4>Your Meeting</h4>
                 <Form onSubmit={updateName}>
                     <Form.Group>
                         <Form.Label class="mb-2">Edit your zoom name</Form.Label>
@@ -40,7 +40,7 @@ const LeaveMeeting = () => {
                 <Button variant="primary" type="submit" onClick={e => updateName(e)}>Submit</Button>
 
             </div>
-            <div className="p-1 your-meeting-button">
+            <div className="d-flex justify-content-end align-items-center your-meeting-button">
                 <Button variant="danger" onClick={killBot}>Kill bot</Button>
             </div>
         </div>
