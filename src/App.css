@@ -58,6 +58,7 @@
   color: white;
   margin: 5px 10px;
   margin-right: -1px;
+  cursor: pointer;
 }
 
 .side-tabs {
