@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
-import { Form, Spinner } from 'react-bootstrap';
+import { Form, Toast, ToastContainer } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { VroomContext } from '../../Common/VroomContext';
 import axios from "axios";
+import LoadingBar from '../../Common/LoadingBar';
 
 const Meeting = () => {
     const {
@@ -11,6 +12,7 @@ const Meeting = () => {
     } = useContext(VroomContext);
 
     const [showLoading, setShowLoading] = useState(false)
+    const [showToast, setShowToast] = useState(false)
 
     const launch = (event) => {
         event.preventDefault();
@@ -25,18 +27,15 @@ const Meeting = () => {
             setShowLoading(false);
         }).catch(err => {
             console.log(err)
+            setShowToast(true);
+            setShowLoading(false);
         });
     }
     return (
         <>
         {showLoading ?   
-        <div className="tab-container d-flex align-items-center justify-content-center flex-column ">
-            <Spinner animation="border" variant="primary" />
-            <h4>Please wait while Vroom joins!</h4>
-        </div> 
-        
+        <LoadingBar text="Please wait while Vroom joins!"/>
         : 
-
         <div className="tab-container">
             <h4>Launch an assistant</h4>
             <Form onSubmit={launch}>
@@ -47,7 +46,12 @@ const Meeting = () => {
                     <Form.Control className="mb-4"id="tutor-name" type="text" placeholder="Some name"></Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={e => {launch(e); setShowLoading(true);}}>Submit</Button>
-            </Form>            
+            </Form>  
+            <ToastContainer style={{width: "fit-content"}} position="top-center" className="p-3" >
+                <Toast bg='danger' className="my-toast" onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <Toast.Body>Link Invalid!</Toast.Body>
+                </Toast>
+            </ToastContainer>          
         </div>}
 
         </>
