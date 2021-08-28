@@ -80,9 +80,9 @@ const ViewPoll = (props) => {
 
 
     return (
-        <div>
+        <div className="tab-container">
             <div>
-                <h4>Poll Results</h4>
+                <h4 className="pt-5">Poll Results</h4>
                 <p>Select an answer to view students</p>
                 <BarObject
                     options={options}

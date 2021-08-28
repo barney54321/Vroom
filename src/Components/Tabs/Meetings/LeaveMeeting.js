@@ -30,7 +30,7 @@ const LeaveMeeting = () => {
     return (
         <div className="tab-container">
             <div className="p-1 your-meeting">
-                <h4 className="mt-5">Your Meeting</h4>
+                <h4 className="pt-5">Your Meeting</h4>
                 <Form onSubmit={updateName}>
                     <Form.Group>
                         <Form.Label class="mb-2">Edit your zoom name</Form.Label>
