@@ -13,7 +13,7 @@ const PercentageBar = (props) => {
     return (
         <Card className="poll-result" border={"primary"} onClick={() => props.handleClick(props.index)}>
             <div className={"color-result"} id={idx}>
-                <Card.Body className={"poll-result-text" + activeClass }>{`${props.value}% ${props.name}`}</Card.Body>
+                <Card.Body className={"poll-result-text" + activeClass }>{`${Math.round(props.value)}% ${props.name}`}</Card.Body>
             </div>
         </Card>
     );

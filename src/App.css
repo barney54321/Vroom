@@ -164,6 +164,7 @@ h4 {
 
 .tab-container {
   height: 569.2px;
+
 }
 
 .total-votes {
@@ -171,3 +172,8 @@ h4 {
   padding-left: 8px;
   padding-top: 4px;
 }
+
+/* .back-button {
+  height: fit-content;
+  align-items: baseline;
+} */
