@@ -30,20 +30,6 @@ const DefaultViewPoll = (props) => {
             options: options
         }
         axios.post("http://127.0.0.1:8080/launchpoll", {options: sendOptions}).then(res => {
-            console.log(res)
-            // let copy = []
-            // for (let i = 0; i < options.length; i++) {
-            //     copy[i] = {options: options[i], names: []}
-            // }
-            // const copyPolls = [...polls]
-            // copyPolls[currentPoll] = {
-            //     name: poll.name,
-            //     question: poll.question,
-            //     options: copy,
-            //     hasLaunched: poll.hasLaunched
-            // }; 
-            // console.log(copyPolls);
-            // setPolls(copyPolls);
             setPollLaunched();
             setUpdate(!update);
             setActivePoll(currentPoll);
