@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Nav from 'react-bootstrap/Nav';
 import TabPane from 'react-bootstrap/TabPane';
@@ -7,14 +7,12 @@ import TabContent from 'react-bootstrap/TabContent';
 import TabContainer from 'react-bootstrap/TabContainer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import BarObject from "./BarObject";
 import DefaultPollPage from "../Tabs/Poll/DefaultPollPage";
 import DefaultLessonPlan from "../Tabs/LessonPlan/DefaultLessonPlan";
 import Commands from "../Tabs/Commands";
 import DefaultProgress from "../Tabs/DefaultProgress";
 import DefaultMeeting from '../Tabs/Meetings/DefaultMeeting'
 import { BsFillCameraVideoFill, BsBarChart, BsClipboard, BsTerminal, BsFillPersonLinesFill } from "react-icons/bs";
-import PollNotLaunched from "../Tabs/Poll/PollNotLaunched";
 
 const SideNav = (props) => {
 

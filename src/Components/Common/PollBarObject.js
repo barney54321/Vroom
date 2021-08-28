@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Bar from "./Bar";
 
 const PollBarObject = (props) => {
