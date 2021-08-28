@@ -329,13 +329,14 @@ class Zoom {
                     lastTime = await this.driver.executeScript("return arguments[0].innerHTML", headerSpan);
 
                     let hours = parseInt(lastTime.substring(0, 2));
-                    let minutes = parseInt(lastTime.substring(2, 5));
+                    let minutes = parseInt(lastTime.substring(3, 5));
+                    let seconds = parseInt(lastTime.substring(6, 8));
                     let am = lastTime.includes("AM");
 
-                    lastTimeNum = hours * 60 + minutes;
+                    lastTimeNum = hours * 60 * 60 + minutes * 60 + seconds;
                     
                     if (!am) {
-                        lastTimeNum += 12 * 60;
+                        lastTimeNum += 12 * 60 * 60;
                     }
                 }
 
