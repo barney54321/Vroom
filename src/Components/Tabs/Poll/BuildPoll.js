@@ -6,7 +6,21 @@ import Button from 'react-bootstrap/Button';
 import CloseButton from 'react-bootstrap/CloseButton'
 import { VroomContext } from '../../Common/VroomContext';
 
-const alphabet = "abcde"
+const alphabet = "abcde";
+
+/*
+[{
+    name: "Poll 1",
+    question: "What project is more awesome?",
+    options: [ 
+        {option: "Vroom",
+        names: ["amy", "bob"]},
+        {option: "Vroom but in blue",
+        names: ["steven", "someone"]}
+    ],
+    hasLaunched: false   
+}]
+*/
 
 const BuildPoll = (props) => {
 
@@ -17,6 +31,7 @@ const BuildPoll = (props) => {
     const {
         polls,
         setPolls,
+        setCurrentPoll,
         setPollPage,
     } = useContext(VroomContext);
 
@@ -36,20 +51,26 @@ const BuildPoll = (props) => {
     }
 
     const handleSave = () => {
-        const options = [];
+        const copyOptions = [];
         for (let i = 0; i < options.length; i++) {
-            options.push(document.getElementById("option" + i).value);
+            const option = {
+                option: document.getElementById("option" + i).value,
+                names: []
+            }
+            copyOptions.push(option);
         }
         const name = document.getElementById("poll-name").value;
         const question = document.getElementById("poll-question").value;
         const copy = [...polls, {
             name: name,
             question: question,
-            options: options,
-            names: null,
+            options: copyOptions,
             hasLaunched: false
         }]
-        setPolls(copy)
+        setPolls(copy);
+        setCurrentPoll(copy.length-1);
+        setPollPage("view");
+        console.log()
     }
 
     const importPoll = (json) => {

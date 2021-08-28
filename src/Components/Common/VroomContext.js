@@ -2,6 +2,20 @@ import React, {useState, createContext } from "react";
 
 export const VroomContext = createContext({});
 
+/*
+[{
+    name: "Poll 1",
+    question: "What project is more awesome?",
+    options: [ 
+        {option: "Vroom",
+        names: ["amy", "bob"]},
+        {option: "Vroom but in blue",
+        names: ["steven", "someone"]}
+    ],
+    hasLaunched: false   
+}]
+*/
+
 export const VroomContextProvider = (props) => {
 
     const [inMeeting, setInMeeting] = useState(true);
