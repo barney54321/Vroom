@@ -51,20 +51,20 @@ const BuildPoll = (props) => {
     }
 
     const handleSave = () => {
-        const options = [];
+        const copyOptions = [];
         for (let i = 0; i < options.length; i++) {
             const option = {
                 option: document.getElementById("option" + i).value,
                 names: []
             }
-            options.push(option);
+            copyOptions.push(option);
         }
         const name = document.getElementById("poll-name").value;
         const question = document.getElementById("poll-question").value;
         const copy = [...polls, {
             name: name,
             question: question,
-            options: options,
+            options: copyOptions,
             hasLaunched: false
         }]
         setPolls(copy);
