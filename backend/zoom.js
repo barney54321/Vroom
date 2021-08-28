@@ -307,6 +307,8 @@ class Zoom {
             await this.vote(message);
         } else if (splits[0] === "!translate") {
             await this.translator(message);  
+        } else if (splits[0] === "!anon") {
+            await this.anon(message);
         } else {
             console.log("Yes");
         }
@@ -345,6 +347,11 @@ class Zoom {
         let res = await translate(text, {to: "en"});
         await this.sendMessage(message.sender, res.text);
     }
+
+    async anon(message) {
+        await this.sendMessage("Everyone", message.text.substring(6));
+    }
+
 }
 
 module.exports = { Zoom };
