@@ -329,7 +329,7 @@ class Zoom {
                     lastTime = await this.driver.executeScript("return arguments[0].innerHTML", headerSpan);
 
                     let hours = parseInt(lastTime.substring(0, 2));
-                    let minutes = parseInt(lastTime.substring(3, 5));
+                    let minutes = parseInt(lastTime.substring(2, 5));
                     let am = lastTime.includes("AM");
 
                     lastTimeNum = hours * 60 + minutes;
@@ -408,6 +408,8 @@ class Zoom {
             return;
         }
 
+        console.log(message.timeNum + " " + message.sender + ": " + message.text);
+
         let splits = message.text.split(" ");
 
         if (splits[0] === "!vote") {
@@ -469,30 +471,34 @@ class Zoom {
 
             // Add vote
             this.poll.options[optionIndex].names.push(message.sender);
-
         });
+
+        await this.sendMessage(message.sender, "Vote casted");
     }
 
     async translator(message) {
         let text = message.text.substring(11);
         let res = await translate(text, {to: "en"});
-        await this.sendMessage(message.sender, res.text);
+        await this.sendMessage(message.sender, "Translation: " + res.text);
     }
 
     async anon(message) {
-        await this.sendMessage("Everyone", message.text.substring(6));
+        await this.sendMessage("Everyone", "Anon: " + message.text.substring(6));
     }
 
     async slower(message) {
         await this.sendMessage(this.name, message.sender + " wants you to go slower");
+        await this.sendMessage(message.sender, "Roger that");
     }
 
     async help(message) {
         await this.sendMessage(this.name, message.sender + " wants help for " + message.text.substring(6));
+        await this.sendMessage(message.sender, "Roger that");
     }
 
     async faster(message) {
         await this.sendMessage(this.name, message.sender + " wants you to go faster");
+        await this.sendMessage(message.sender, "Roger that");
     }
 
     async now(message) {
@@ -551,6 +557,8 @@ class Zoom {
             question: parseInt(question),
             names: [message.sender]
         });
+
+        await this.sendMessage(message.sender, "Progress updated");
     }
 }
 
