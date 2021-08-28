@@ -23,12 +23,14 @@ const DefaultProgress = () => {
 
     const studentInfo = showStudents ?
     <div className="students"> 
-        <h4>Students</h4>
+        <h4 style={{marginTop: -20}}>Students</h4>
         <ListGroup className={"mb-3"}>
             {students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
         </ListGroup>
     </div>
-    : console.log();
+    :  <p style={{textAlign: "center"}}>Select a question to view students</p>;
+
+    console.log()
 
     return (
         <div className="tab-container">
@@ -36,7 +38,6 @@ const DefaultProgress = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <div>
                         <h4>Progress</h4>
-                        <p>Select a question to view students</p>
                     </div>
                     <Button className="mb-2" onClick={getProgress}>Refresh</Button>
                 </div> 

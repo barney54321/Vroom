@@ -52,8 +52,8 @@ const BarObject = (props) => {
     console.log("values", values)
     
     return (
-        <div>
-            <p>{question}</p>
+        <div className="d-flex flex-column align-items-center w-100">
+            <p className="mb-0">{question}</p>
             {values.map((result, index) => (
                 <PercentageBar 
                     index={index}
