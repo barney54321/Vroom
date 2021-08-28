@@ -4,7 +4,7 @@ import ViewPoll from './ViewPoll'
 import { VroomContext } from '../../Common/VroomContext';
 import axios from 'axios'
 import LoadingBar from '../../Common/LoadingBar';
-
+import { Toast, ToastContainer } from 'react-bootstrap';
 
 const DefaultViewPoll = (props) => {
     
@@ -17,6 +17,7 @@ const DefaultViewPoll = (props) => {
 
     const [update, setUpdate] = useState(true);
     const [showLoading, setShowLoading] = useState(false);
+    const [showToast, setShowToast] = useState(false);
 
     const poll = polls[currentPoll];
 
@@ -44,6 +45,8 @@ const DefaultViewPoll = (props) => {
             
         }).catch(err => {
             console.log(err)
+            setShowToast(true);
+            setShowLoading(false);
         });
     }
 
@@ -57,6 +60,11 @@ const DefaultViewPoll = (props) => {
     return (
         <div>
             {showLoading ? <LoadingBar text="Wait for poll!"/> : page}
+            <ToastContainer style={{width: "fit-content"}} position="top-center" className="p-3" >
+                <Toast bg='danger' className="my-toast" onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <Toast.Body>You haven't started a meeting!</Toast.Body>
+                </Toast>
+            </ToastContainer>   
         </div>
     )
 }
