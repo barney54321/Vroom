@@ -3,6 +3,7 @@ const webdriver = require("selenium-webdriver");
 const { By } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 var Mutex = require('async-mutex').Mutex; 
+const translate = require('@vitalets/google-translate-api');
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -304,6 +305,8 @@ class Zoom {
 
         if (splits[0] === "!vote") {
             await this.vote(message);
+        } else if (splits[0] === "!translate") {
+            await this.translator(message);  
         } else {
             console.log("Yes");
         }
@@ -335,6 +338,12 @@ class Zoom {
 
         // Add vote
         this.poll.options[optionIndex].names.push(message.sender);
+    }
+
+    async translator(message) {
+        let text = message.text.substring(11);
+        let res = await translate(text, {to: "en"});
+        await this.sendMessage(message.sender, res.text);
     }
 }
 
