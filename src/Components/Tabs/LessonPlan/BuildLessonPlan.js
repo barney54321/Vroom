@@ -44,6 +44,11 @@ const BuildLessonPlan = (props) => {
     }
 
     const handleSave = () => {
+        setLessonPlan(getContents())
+        setViewLessonPlan(true);
+    }
+
+    const getContents = () => {
         const copy = [];
         for (let i = 0; i < contents.length; i++) {
             const name = document.getElementById("contents-name" + i).value;
@@ -56,11 +61,10 @@ const BuildLessonPlan = (props) => {
             })
         }
         const lessonName = document.getElementById("lesson-name").value;
-        setLessonPlan({
+        return {
             name: lessonName,
             contents: copy
-        })
-        setViewLessonPlan(true);
+        }
     }
 
     const handleClear = () => {
@@ -85,6 +89,21 @@ const BuildLessonPlan = (props) => {
     const importLessonPlan = (json) => {
         setName(json.name);
         setcontents(json.contents);
+    }
+
+    const handleExport = () => {
+        const lesson = getContents();
+        const element = document.createElement('a');
+        element.setAttribute(
+            'href',
+            'data:json/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(lesson))
+        )
+        const filename = lesson.name + ".json"
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.append(element);
+        element.click();
+        document.body.removeChild(element);
     }
 
     return (            
@@ -141,8 +160,9 @@ const BuildLessonPlan = (props) => {
                 <Button variant="outline-primary" onClick={handleAdd}>+ SECTION</Button>
                 </div>
             </div>
-            <div className="d-flex justify-content-end align-items-center your-meeting-button">
+            <div className="build-buttons your-meeting-button">
                 <Button variant="danger" className="me-2" onClick={handleClear}>Clear</Button>
+                <Button variant="secondary" className="me-2" onClick={handleExport}>Export</Button>
                 <Button onClick={handleSave}>Save</Button>
             </div>
         </div>
