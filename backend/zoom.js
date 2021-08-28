@@ -434,7 +434,7 @@ class Zoom {
         } else if (splits[0] === "!progress") {
             await this.updateProgress(message);
         } else {
-            console.log("Yes");
+            await this.sendMessage(message.sender, "Unknown command");
         }
     }
 
