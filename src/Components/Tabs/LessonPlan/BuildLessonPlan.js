@@ -115,7 +115,6 @@ const BuildLessonPlan = (props) => {
                 <div className="d-flex align-items-start w-100">
                 <Button variant="outline-primary" onClick={handleAdd}>+ SECTION</Button>
                 </div>
-            </div>
             <div className="d-flex justify-content-end align-items-center your-meeting-button">
                     <Button onClick={handleSave}>Save</Button>
             </div>
