@@ -1,51 +1,58 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext } from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import BarObject from '../Common/BarObject';
 import { VroomContext } from '../Common/VroomContext';
 import axios from "axios";
 
 const DefaultProgress = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(null);
     const [showStudents, setShowStudents] = useState(false);
     
     const {
-        setProgress,
+        getProgress,
         progress
     } = useContext(VroomContext);
     
-    //  const progress = [{question: "q1", students: ["amy", "bob"], value: 90},  {question: "q2", students: ["caro", "db"], value: 90}]
-
-    const getProgress = () => {
-        // refresh button 
-        axios.get("http://127.0.0.1:8080/getprogress").then(res => {
-            setProgress(res.data.questions)
-
-            // Check logic on whether to show students or not 
-            if (res.data.questions) {
-                setShowStudents(true);
-            }
-        }).catch(err => {
-            console.log(err)
-        });
-
-        console.log(progress)
+    // progress of students: [{question: 1, names: ["Name 1", "Name 2"]}, {question: 2, names: ["Name 3"]}]
+    let students = []
+    if (activeIndex !== null && progress[activeIndex].names) {
+        students = progress[activeIndex].names
     }
+
+    console.log("progress", progress)
+
+    const studentInfo = showStudents ?
+    <div className="students"> 
+        <h4>Students</h4>
+        <ListGroup className={"mb-3"}>
+            {students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+        </ListGroup>
+    </div>
+    : console.log();
 
     return (
         <div className="tab-container">
             <div>
-                <h4>Progress</h4>
-                <p>Select a question to view students</p>
-                <BarObject question=" " activeIndex={activeIndex} setActiveIndex={setActiveIndex}></BarObject>
+                <div className="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 className="mt-5">Progress</h4>
+                        <p>Select a question to view students</p>
+                    </div>
+                    <Button className="mb-2" onClick={getProgress}>Refresh</Button>
+                </div>
+                
+                
+                <BarObject
+                    question=" "
+                    options={progress}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    showVotes={false}
+                    setShowStudents={setShowStudents}
+                />
             </div>
             <hr></hr>
-            <div className="students"> 
-                {showStudents && <h3>Students</h3>}
-                <ListGroup className={showStudents && "mb-3"}>
-                    {showStudents && progress.length!== 0 ? progress[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>) : console.log("none")}
-                </ListGroup>
-            </div>
-            <Button className="mb-5" onClick={getProgress}>Refresh</Button>
+            {studentInfo}
         </div>
         
     )

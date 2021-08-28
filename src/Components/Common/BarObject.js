@@ -23,7 +23,7 @@ const BarObject = (props) => {
     // let question = props.question == null ? "What's better?" : props.question;
     // let votes = props.votes == null ? false : props.votes;
 
-    let options = props.options;
+    let options =  props.options;
     let question = props.question;
     let values = [];
 
@@ -44,7 +44,10 @@ const BarObject = (props) => {
 
     const handleClick = (index) => {
         setActiveIndex(index)
+        props.setShowStudents(true);
     }
+
+    console.log("options", options)
     
     return (
         <div>
@@ -53,13 +56,13 @@ const BarObject = (props) => {
                 <PercentageBar 
                     index={index}
                     value={result.value}
-                    name={result.name}
+                    name={props.showVotes === false ? "Question " + (index+1) : result.name}
                     active={index === activeIndex} 
                     handleClick={handleClick}
                 />
             ))}
             <div className="total-votes">
-                <p>{votes === false ? "": `${votes} votes`}</p>
+                <p>{props.showVotes === false ? "": `${votes} votes`}</p>
             </div>
         </div>
     );
