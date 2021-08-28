@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Vroom
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Virtual Zoom Teaching Assistant
 
-## Available Scripts
+Vroom is a teaching assistant chatbot that can be used by teachers in Zoom meetings to help improve engagement in virtual classrooms. With a Vroom enabled meeting, students can:
 
-In the project directory, you can run:
++ Ask questions anonymously to avoid embarassment
++ Discretely ask for help from their teacher
++ Privately suggest the teacher slow down/speed up
++ Translate their questions from any language to English
++ Find out what they should be doing
++ Get access to attendance links
 
-### `npm start`
+Additionally, with a Vroom enable meeting, teachers can:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
++ Efficiently organise polls and look at a detailed breakdown of the responses
++ Keep track of which questions students have completed
++ Manage lesson plans
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Libraries and Frameworks Used
 
-### `npm test`
++ React for the frontend
++ Bootstrap for frontend component styling
++ Electron to create a desktop application
++ Express.js to manage a local backend
++ Selenium-Webdriver to interact with Zoom Web Client
++ Google Translate API to translate messages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## How to Run
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
++ Clone the repository and run `npm i` to install dependencies
++ If on Windows, run `npm run dev` to launch a complete version of the application
++ If on Mac or Linux, run `npm run dev-mac` to launch a complete version of the application
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to Run in Test Modes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
++ If on Windows, run `npm run dev-test` to launch the application with a dummy backend
++ If on Mac or Linux, run `npm run dev-mac-test` to launch the application with a dummy backend
++ For all platforms, run `npm run backend` to launch only the backend and selenium
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Authors
++ Sammi Millett
++ Lilian Hunt
++ Rhiannon Hames
++ Andrew Esteban
