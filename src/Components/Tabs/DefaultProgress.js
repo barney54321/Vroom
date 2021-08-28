@@ -19,8 +19,6 @@ const DefaultProgress = () => {
         students = progress[activeIndex].names
     }
 
-    console.log("progress", progress)
-
     const studentInfo = showStudents ?
     <div className="students"> 
         <h4 style={{marginTop: -20}}>Students</h4>
@@ -29,8 +27,6 @@ const DefaultProgress = () => {
         </ListGroup>
     </div>
     :  <p style={{textAlign: "center"}}>Select a question to view students</p>;
-
-    console.log()
 
     return (
         <div className="tab-container">
