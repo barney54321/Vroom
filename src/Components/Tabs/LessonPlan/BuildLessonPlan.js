@@ -70,10 +70,11 @@ const BuildLessonPlan = (props) => {
         setcontents(json.contents);
     }
 
-    return (
-        <div>
-            <CustomDropZone callback={importLessonPlan}/>
+    return (            
+        <div className="tab-container">
+            <h4 className="pt-5">Build Lesson Plan</h4>
             <div className="center-columns">
+                <CustomDropZone callback={importLessonPlan}/>
                 <Form className="center-colums w-100">
                     <div className="form-question">
                         <Form.Label className="mb-1">Lesson name</Form.Label>
@@ -111,7 +112,10 @@ const BuildLessonPlan = (props) => {
                 <div className="d-flex align-items-start w-100">
                 <Button variant="outline-primary" onClick={handleAdd}>+ SECTION</Button>
                 </div>
-                <Button onClick={handleSave}>Save</Button>
+                
+                <div className="p-1 your-meeting-button">
+                    <Button onClick={handleSave}>Save</Button>
+                </div>
             </div>
         </div>
 
