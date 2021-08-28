@@ -81,35 +81,73 @@ class Zoom {
     }
 
     async leave() {
-        // Stop running
-        this.run = false;
+        try {
+            // Stop running
+            this.run = false;
 
-        // Press more options button
-        await this.driver.executeScript(
-            "document.getElementById('moreButton').click()"
-        );
+            // Press more options button
+            await this.driver.executeScript(
+                "document.getElementById('moreButton').click()"
+            );
 
-        // Get the span
-        let leaveSpan = await this.driver.findElement(
-            By.className("more-button__leave-menu")
-        );
-        // Get the parent
-        let leaveSpanParent = await leaveSpan.findElement(By.xpath(".."));
-        // Click the parent
-        await leaveSpanParent.click();
+            // Get the span
+            let leaveSpan = await this.driver.findElement(
+                By.className("more-button__leave-menu")
+            );
+            // Get the parent
+            let leaveSpanParent = await leaveSpan.findElement(By.xpath(".."));
+            // Click the parent
+            await leaveSpanParent.click();
 
-        // Wait a moment
-        await sleep(1);
+            // Wait a moment
+            await sleep(1);
 
-        // Click leave meeting button
-        let leaveMeetingButton = await this.driver.findElement(
-            By.className(
-                "zmu-btn leave-meeting-options__btn leave-meeting-options__btn--default leave-meeting-options__btn--danger zmu-btn--default zmu-btn__outline--white"
-            )
-        );
-        await leaveMeetingButton.click();
+            // Click leave meeting button
+            let leaveMeetingButton = await this.driver.findElement(
+                By.className(
+                    "zmu-btn leave-meeting-options__btn leave-meeting-options__btn--default leave-meeting-options__btn--danger zmu-btn--default zmu-btn__outline--white"
+                )
+            );
+            await leaveMeetingButton.click();
 
-        console.log("Left meeting");
+            console.log("Left meeting");
+
+            this.driver.close();
+        } catch (error) {
+            // Try again but sleep
+            await sleep(100);
+            // Stop running
+            this.run = false;
+
+            // Press more options button
+            await this.driver.executeScript(
+                "document.getElementById('moreButton').click()"
+            );
+
+            // Get the span
+            let leaveSpan = await this.driver.findElement(
+                By.className("more-button__leave-menu")
+            );
+            // Get the parent
+            let leaveSpanParent = await leaveSpan.findElement(By.xpath(".."));
+            // Click the parent
+            await leaveSpanParent.click();
+
+            // Wait a moment
+            await sleep(1);
+
+            // Click leave meeting button
+            let leaveMeetingButton = await this.driver.findElement(
+                By.className(
+                    "zmu-btn leave-meeting-options__btn leave-meeting-options__btn--default leave-meeting-options__btn--danger zmu-btn--default zmu-btn__outline--white"
+                )
+            );
+            await leaveMeetingButton.click();
+
+            console.log("Left meeting");
+
+            this.driver.close();
+        }
     }
 
     async editName(name) {
@@ -186,7 +224,13 @@ class Zoom {
     }
 
     async sendMessage(receiver, message) {
-        await this.recipientButton.click();
+
+        try {
+            await this.recipientButton.click();
+        } catch (error) {
+            await this.resetChatWindow();
+            await this.recipientButton.click();
+        }
 
         // Get scrollbar
         let scrollbar = await this.driver.findElement(
@@ -221,8 +265,31 @@ class Zoom {
         await this.chatField.sendKeys("\n");
     }
 
+    async resetChatWindow() {
+        // Get the chat button
+        let chatButton = await this.driver.findElement(By.className("footer-button__chat-icon"));
+
+        // Wait a bit more for everything to load
+        await sleep(10);
+
+        await chatButton.click();
+
+        await sleep(1);
+
+        this.chatField = await this.driver.findElement(By.className("chat-box__chat-textarea window-content-bottom"));
+        this.recipientButton = await this.driver.findElement(By.id("chatReceiverMenu"));
+    }
+
     async readMessages() {
-        let bigChatDiv = await this.driver.findElement(By.id("chat-list-content"));
+
+        let bigChatDiv;
+
+        try {
+            bigChatDiv = await this.driver.findElement(By.id("chat-list-content"));
+        } catch (error) {
+            await this.resetChatWindow();
+            bigChatDiv = await this.driver.findElement(By.id("chat-list-content"));
+        }
 
         let listDivs;
 
@@ -241,49 +308,55 @@ class Zoom {
         let divs = await listDivs.findElements(By.xpath("*"));
 
         for (let i = 0; i < divs.length; i++) {
-            // For some reason doing this works but using divs[i] doesn't
-            let div = (await listDivs.findElements(By.xpath("*")))[i];
+            try {
+                // For some reason doing this works but using divs[i] doesn't
+                let div = (await listDivs.findElements(By.xpath("*")))[i];
 
-            let children = await div.findElements(By.xpath("*"));
+                let children = await div.findElements(By.xpath("*"));
 
-            if (children.length === 2) {
-                // New name
-                let headerDiv = children[0];
+                if (children.length === 2) {
+                    // New name
+                    let headerDiv = children[0];
 
-                // There are 4~5 spans in the header (sender, "to", receiver, ?, "Privately")
-                let headerName = await headerDiv.findElement(webdriver.By.className("chat-item__left-container"));
-                let headerSpan = await headerDiv.findElement(webdriver.By.className("chat-item__chat-info-time-stamp"));
+                    // There are 4~5 spans in the header (sender, "to", receiver, ?, "Privately")
+                    let headerName = await headerDiv.findElement(webdriver.By.className("chat-item__left-container"));
+                    let headerSpan = await headerDiv.findElement(webdriver.By.className("chat-item__chat-info-time-stamp"));
 
-                let headerNameSpans = await headerName.findElements(By.css("span"));
+                    let headerNameSpans = await headerName.findElements(By.css("span"));
 
-                lastSender = await (await headerNameSpans[0]).getText();
-                lastRecipient = await (await headerNameSpans[2]).getText();
-                lastTime = await this.driver.executeScript("return arguments[0].innerHTML", headerSpan);
+                    lastSender = await (await headerNameSpans[0]).getText();
+                    lastRecipient = await (await headerNameSpans[2]).getText();
+                    lastTime = await this.driver.executeScript("return arguments[0].innerHTML", headerSpan);
+                }
+
+                let messageHalf = children[children.length - 1];
+
+                let innerMessageDiv = messageHalf;
+                let messageHalfClass = await messageHalf.getAttribute("class");
+
+                if (messageHalfClass !== "chat-message__container") {
+                    innerMessageDiv = await messageHalf.findElement(webdriver.By.className("chat-message__container"));
+                }
+
+                let innerMessage = await innerMessageDiv.findElement(webdriver.By.xpath("*"));
+
+                let messageText = await innerMessage.getText();
+                let messageID = await innerMessage.getId();
+
+                let message = {
+                    id: messageID,
+                    text: messageText,
+                    sender: lastSender,
+                    recipient: lastRecipient,
+                    time: lastTime
+                }
+
+                res.push(message);
+
+            } catch (error) {
+                // Stuff went wrong
+                continue;
             }
-
-            let messageHalf = children[children.length - 1];
-
-            let innerMessageDiv = messageHalf;
-            let messageHalfClass = await messageHalf.getAttribute("class");
-
-            if (messageHalfClass !== "chat-message__container") {
-                innerMessageDiv = await messageHalf.findElement(webdriver.By.className("chat-message__container"));
-            }
-
-            let innerMessage = await innerMessageDiv.findElement(webdriver.By.xpath("*"));
-
-            let messageText = await innerMessage.getText();
-            let messageID = await innerMessage.getId();
-
-            let message = {
-                id: messageID,
-                text: messageText,
-                sender: lastSender,
-                recipient: lastRecipient,
-                time: lastTime
-            }
-
-            res.push(message);
         }
 
         return res;
