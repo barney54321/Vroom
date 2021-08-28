@@ -80,33 +80,41 @@ const BuildLessonPlan = (props) => {
 
     return (            
         <div className="tab-container">
-            <h4>Build Lesson Plan</h4>
+            <h4>Set Lesson Plan</h4>
             <div className="center-columns">
                 <CustomDropZone callback={importLessonPlan}/>
+                <h3 className="mt-2">Or build your own</h3>
                 <Form className="center-colums w-100">
                     <div className="form-question">
                         <Form.Label className="mb-1">Lesson name</Form.Label>
                         <Form.Control type="text" placeholder="Enter name" id="lesson-name" defaultValue={name} />
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-3">
                         {contents.map((contents, index) => (
                             <div className="d-flex flex-column" key={"overall"+index+contents.name}>
+                                <hr></hr>
                                 <div className="d-flex">
-                                    <Form.Label className="mb-1">Section Name</Form.Label>
-                                    <Form.Control
-                                        className="mb-3"
-                                        id={"contents-name" + index}
-                                        placeholder="contents name"
-                                        defaultValue={contents.name}
-                                    />
-                                    <Form.Label className="mb-1">Time</Form.Label>
-                                    <Form.Control
-                                        className="mb-3"
-                                        id={"contents-time" + index}
-                                        placeholder="10"
-                                        defaultValue={contents.time}
-                                    />
-                                    <CloseButton onClick={() => handleDelete(index)} className="mt-2 ms-1"/>
+                                    <div className="section-name">
+                                        <Form.Label className="mb-1">Section Name</Form.Label>
+                                        <Form.Control
+                                            className="name-submit"
+                                            id={"contents-name" + index}
+                                            placeholder="contents name"
+                                            defaultValue={contents.name}
+                                        />
+                                    </div>
+                                    <div className="section-name">
+                                        <Form.Label className="mb-1">Time (min)</Form.Label>
+                                        <Form.Control
+                                            className=""
+                                            id={"contents-time" + index}
+                                            placeholder="10"
+                                            defaultValue={contents.time}
+                                        />
+                                    </div>
+                                   
+                                        <CloseButton onClick={() => handleDelete(index)} className="section-close"/>
+                                
                                 </div>
                                 <Form.Label className="mb-1">Teaching Notes</Form.Label>
                                 <Form.Control
@@ -125,7 +133,7 @@ const BuildLessonPlan = (props) => {
                 </div>
             </div>
             <div className="d-flex justify-content-end align-items-center your-meeting-button">
-                <Button onClick={handleClear}>clear</Button>
+                <Button variant="danger" className="me-2" onClick={handleClear}>Clear</Button>
                 <Button onClick={handleSave}>Save</Button>
             </div>
         </div>
