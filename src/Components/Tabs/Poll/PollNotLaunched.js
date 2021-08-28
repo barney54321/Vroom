@@ -39,11 +39,14 @@ const PollNotLaunched = (props) => {
         setPollPage("build");
     }
     return (
-        <div>
-            <h4>Your Poll</h4>
+        <div className="tab-container">
+            <h4 className="pt-5">Your Poll</h4>
             <PollBarObject></PollBarObject>
-            <Button onClick={props.launchPoll} n>Launch Poll</Button>
-            <Button onClick={createNewPoll}>+ New Poll</Button>
+            <div className="mt-3 d-flex justify-content-between">
+                <Button onClick={props.launchPoll} n>Launch Poll</Button>
+                <Button onClick={createNewPoll}>+ New Poll</Button>
+            </div>
+            
         </div>
     )
 }

@@ -22,7 +22,7 @@ Poll
 
 const ViewPoll = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [showStudentsForPoll] = useState(false);
+    const [showStudentsForPoll] = useState(true);
 
     const {
         setPollPage,
@@ -82,11 +82,15 @@ const ViewPoll = (props) => {
 
     const actionButton = isActive ? <Button variant="danger" onClick={closePoll}>Close Poll</Button> : launchButton;
         
-
+    
     return (
         <div className="tab-container">
             <div>
-                <h4 className="pt-5">Poll Results</h4>
+                <div className="d-flex justify-content-between align-items-center">
+                    <h4 className="pt-5">Poll Results</h4>
+                    <Button className="mt-2" onClick={handleBack}>Back</Button>
+                </div>
+                
                 <p>Select an answer to view students</p>
                 <BarObject
                     options={options}
@@ -96,15 +100,20 @@ const ViewPoll = (props) => {
                 </BarObject>
             </div>
             <div className="students"> 
+                {showStudentsForPoll && <hr></hr>}
                 {showStudentsForPoll && <h4>Students</h4>}
                 <ListGroup>
-                    {showStudentsForPoll && poll[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+                    
+                    {showStudentsForPoll && poll.options[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
                 </ListGroup>
             </div>
-            {actionButton}
-            <Button onClick={refresh}>Refresh</Button>
-            <Button onClick={createNewPoll}>+ New Poll</Button>
-            <Button onClick={handleBack}>Back</Button>
+            <div className="mt-3 d-flex justify-content-between">
+                {actionButton}
+                <Button onClick={refresh}>Refresh</Button>
+                <Button onClick={createNewPoll}>+ New Poll</Button>
+                
+            </div>
+            
         </div>
         
     )
