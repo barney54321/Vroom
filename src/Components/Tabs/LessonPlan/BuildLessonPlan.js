@@ -1,9 +1,9 @@
 import React, {useState, useContext } from "react";
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button';
 import CloseButton from 'react-bootstrap/CloseButton'
 import { VroomContext } from '../../Common/VroomContext';
+import CustomDropZone from "../../Common/CustomDropZone";
 
 const BuildLessonPlan = (props) => {
 
@@ -16,7 +16,6 @@ const BuildLessonPlan = (props) => {
 
     const {
         setLessonPlan,
-        setLessonPlanPage
     } = useContext(VroomContext);
 
     const handleAdd = () => {
@@ -47,31 +46,33 @@ const BuildLessonPlan = (props) => {
     }
 
     const handleSave = () => {
-        const contents = [];
+        const copy = [];
         for (let i = 0; i < contents.length; i++) {
             const name = document.getElementById("contents-name" + i).value;
             const time = document.getElementById("contents-time" + i).value;
             const description = document.getElementById("contents-description" + i).value;
-            contents.push({
+            copy.push({
                 name: name,
                 time: time,
                 description: description
             })
         }
-        const name = document.getElementById("lesson-name").value;
+        const lessonName = document.getElementById("lesson-name").value;
+        console.log("contents", copy)
         setLessonPlan({
-            name: name,
+            name: lessonName,
             contents: contents
         })
-        setLessonPlanPage("view")
     }
 
-    const handleExit = () => {
-        setLessonPlanPage("opening")
+    const importLessonPlan = (json) => {
+        setName(json.name);
+        setcontents(json.contents);
     }
 
     return (
         <div>
+            <CustomDropZone callback={importLessonPlan}/>
             <div className="center-columns">
                 <Form className="center-colums w-100">
                     <div className="form-question">
@@ -111,7 +112,6 @@ const BuildLessonPlan = (props) => {
                 <Button variant="outline-primary" onClick={handleAdd}>+ SECTION</Button>
                 </div>
                 <Button onClick={handleSave}>Save</Button>
-                <Button onClick={handleExit}>Exit</Button>
             </div>
         </div>
 

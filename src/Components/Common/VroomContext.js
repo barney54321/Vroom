@@ -18,8 +18,7 @@ export const VroomContextProvider = (props) => {
         ],
         hasLaunched: false   
     }])
-    const [lessonPlan, setLessonPlan] = useState({title: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
-    const [lessonPlanPage, setLessonPlanPage] = useState("build");
+    const [lessonPlan, setLessonPlan] = useState({name: "Week 1", contents: [{name: "Java intro", description: "teachers notes", time:"10"}]})
     const [progress, setProgress] = useState([]);
     const [activePoll, setActivePoll] = useState(null);
     const [commands, setCommands] = useState([{command: "now", response: "Questions"}, {command: "attend", response: "bitly.qwerty"}])
@@ -38,8 +37,6 @@ export const VroomContextProvider = (props) => {
                 setCurrentPoll,
                 lessonPlan,
                 setLessonPlan,
-                lessonPlanPage,
-                setLessonPlanPage,
                 progress,
                 setProgress,
                 activePoll,
