@@ -181,16 +181,13 @@ class Zoom {
             console.log("Launched poll " + JSON.stringify(this.poll));
         });
 
-        let message = question;
-
         let letters = ["A", "B", "C", "D", "E"];
 
-        for (let i = 0; i < options.length; i++) {
-            message = message + " ";
-            message = message + "Send !vote " + letters[i] + " to vote for '" + options[i] + "'."; 
-        }
+        await this.sendMessage("Everyone", question);
 
-        await this.sendMessage("Everyone", message);
+        for (let i = 0; i < options.length; i++) {
+            await this.sendMessage("Everyone", "Send !vote " + letters[i] + " to vote for '" + options[i] + "'.");
+        }
     }
 
     async getResults() {
