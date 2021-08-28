@@ -21,8 +21,8 @@ Poll
 */
 
 const ViewPoll = (props) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [showStudentsForPoll] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [showStudents, setShowStudents] = useState(false);
 
     const {
         setPollPage,
@@ -35,12 +35,16 @@ const ViewPoll = (props) => {
 
     const isActive = currentPoll === activePoll;
     
-    //const poll = [{question: "q1", names: ["amy", "bob"], value: 90}, {question: "q2", names: ["caro", "db"], value: 90}]
     const poll = polls[currentPoll];
 
     // need to get these values
     const options = poll.options;
     const question = poll.question;
+
+    let students = []
+    if (activeIndex !== null && poll.options[activeIndex].names) {
+        students = poll.options[activeIndex].names
+    }
 
     const getResults = () => {
         axios.get("http://127.0.0.1:8080/results").then(res => {
@@ -63,14 +67,14 @@ const ViewPoll = (props) => {
         axios.post("http://127.0.0.1:8080/closepoll").then(res => {
             const copy = [...polls];
             copy[currentPoll].options = res.data.options
-            setPolls(copy)
+            setPolls(copy);
+            setActivePoll(null);
         }).catch(err => {
             console.log(err)
         });
     }
 
     const createNewPoll = () => {
-        // close poll
         setPollPage("build")
     }
 
@@ -78,29 +82,46 @@ const ViewPoll = (props) => {
         setPollPage("existing")
     }
 
+    const launchButton = <Button onClick={props.launchPoll}>{poll.hasLaunched ? "Relaunch" : "Launch"}</Button>;
 
+    const actionButton = isActive ? <Button variant="danger" onClick={closePoll}>Close Poll</Button> : launchButton;
+
+    const studentsInfo =  showStudents ?
+        <div className="students"> 
+            <hr></hr>
+            <h4>Students</h4>
+            <ListGroup>
+                {students.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
+            </ListGroup>
+        </div>
+        : console.log();
+        
+    
     return (
-        <div>
+        <div className="tab-container">
             <div>
-                <h4>Poll Results</h4>
+                <div className="d-flex justify-content-between align-items-center">
+                    <h4>Poll Results</h4>
+                    <Button className="mt-2" onClick={handleBack}>Back</Button>
+                </div>
+                
                 <p>Select an answer to view students</p>
                 <BarObject
                     options={options}
                     question={question}
                     activeIndex={activeIndex}
-                    setActiveIndex={setActiveIndex}>
-                </BarObject>
+                    setActiveIndex={setActiveIndex}
+                    setShowStudents={setShowStudents}
+                />
             </div>
-            <div className="students"> 
-                {showStudentsForPoll && <h4>Students</h4>}
-                <ListGroup>
-                    {showStudentsForPoll && poll[activeIndex].names.map((student, index) => <ListGroup.Item >{student}</ListGroup.Item>)}
-                </ListGroup>
+           {studentsInfo}
+            <div className="mt-3 d-flex justify-content-between">
+                {actionButton}
+                <Button onClick={refresh}>Refresh</Button>
+                <Button onClick={createNewPoll}>+ New Poll</Button>
+                
             </div>
-            <Button variant="danger" onClick={closePoll}>Close Poll</Button>
-            <Button onClick={refresh}>Refresh</Button>
-            <Button onClick={createNewPoll}>+ New Poll</Button>
-            <Button onClick={handleBack}>Back</Button>
+            
         </div>
         
     )

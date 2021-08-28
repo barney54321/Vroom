@@ -26,14 +26,14 @@ const ExistingPolls = (props) => {
     }
 
     return (
-        <div>
+        <div className="tab-container">
             <h4>Existing Polls</h4>
             <ListGroup defaultActiveKey="">
            
             {polls.map((poll, index) => (<ExistingPoll key={index} poll={poll} index={index} deletePoll={deletePoll}/>))}
         
             </ListGroup>
-            <Button variant="primary" onClick={addPoll}>Add Poll</Button>
+            <Button className="mt-3" variant="primary" onClick={addPoll}>Add Poll</Button>
         </div>
     )
 }
