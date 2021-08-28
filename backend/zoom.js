@@ -16,7 +16,7 @@ class Zoom {
     constructor() {
         this.run = true;
         this.messageIDs = [];
-        this.poll = {};
+        this.poll = null;
         this.progress = {
             questions: []
         };
@@ -350,6 +350,11 @@ class Zoom {
     }
 
     async vote(message) {
+        if (this.poll == null) {
+            await this.sendMessage(message.sender, "There are no active polls");
+            return;
+        }
+
         let splits = message.text.split(" ");
 
         if (splits.length === 1) {
