@@ -7,7 +7,8 @@ import axios from "axios";
 const Meeting = () => {
 
     const {
-        setInMeeting
+        setInMeeting,
+        setTutorName
     } = useContext(VroomContext);
 
     const launch = (event) => {
@@ -19,6 +20,7 @@ const Meeting = () => {
         axios.post("http://127.0.0.1:8080/join", {name: name, url: url}).then(res => {
             console.log(res)
             setInMeeting(true);
+            setTutorName(name);
         }).catch(err => {
             console.log(err)
         });
