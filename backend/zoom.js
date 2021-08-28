@@ -34,7 +34,7 @@ class Zoom {
 
         var options = new chrome.Options();
         options.addArguments("--mute-audio");
-        // options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--log-level=3");
 
         var builder = new webdriver.Builder();
