@@ -173,3 +173,8 @@ h4 {
   padding-left: 8px;
   padding-top: 4px;
 }
+
+.my-toast.toast {
+  width:fit-content;
+  color:white;
+}
