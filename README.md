@@ -62,6 +62,7 @@ Our main audience is students, teachers, and tutors, but Vroom doesn't stop ther
 
 ## How to Run in Test Modes
 
++ Clone the repository and run `npm i` to install dependencies
 + If on Windows, run `npm run dev-test` to launch the application with a dummy backend
 + If on Mac or Linux, run `npm run dev-mac-test` to launch the application with a dummy backend
 + For all platforms, run `npm run backend` to launch only the backend and selenium
