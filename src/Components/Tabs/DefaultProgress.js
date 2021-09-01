@@ -2,7 +2,6 @@ import React, {useState, useContext } from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import BarObject from '../Common/BarObject';
 import { VroomContext } from '../Common/VroomContext';
-import axios from "axios";
 
 const DefaultProgress = () => {
     const [activeIndex, setActiveIndex] = useState(null);

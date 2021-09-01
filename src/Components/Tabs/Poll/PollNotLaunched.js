@@ -32,10 +32,6 @@ const PollNotLaunched = (props) => {
     const question = poll.question;
     console.log(poll)
 
-    const createNewPoll = () => {
-        setPollPage("build");
-    }
-
     const handleBack = () => {
         setPollPage("existing")
     }

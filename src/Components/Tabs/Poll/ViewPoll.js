@@ -74,10 +74,6 @@ const ViewPoll = (props) => {
         });
     }
 
-    const createNewPoll = () => {
-        setPollPage("build")
-    }
-
     const handleBack = () => {
         setPollPage("existing")
     }
@@ -95,8 +91,6 @@ const ViewPoll = (props) => {
             </ListGroup>
         </div>
         : console.log();
-        
-        const studentMessage = <p>Select an answer to view students</p>;
     
     return (
         <div className="tab-container">
