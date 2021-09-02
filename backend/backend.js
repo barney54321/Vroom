@@ -26,6 +26,7 @@ app.post("/join", async (req, res) => {
         await zoom.init(url, name);
         res.sendStatus(200);
     } catch (error) {
+        console.log(error);
         res.sendStatus(400);
     }
 });
