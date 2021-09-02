@@ -59,15 +59,24 @@ class Zoom {
             "document.getElementById('joinBtn').click()"
         );
 
+        // Click got it button in case session is recorded
+        await this.clickGotItButton();
+
         // Get the chat button
         let chatButton = await this.driver.findElement(
             By.className("footer-button__chat-icon")
         );
 
         // Wait a bit more for everything to load
-        await sleep(5000);
+        await sleep(1000);
 
-        await chatButton.click();
+        try {
+            await chatButton.click();
+        } catch (error) {
+            // Button isn't available yet
+            await sleep(3000);
+            await this.driver.executeScript("document.getElementsByClassName('footer-button__chat-icon')[0].click()");
+        }
 
         await sleep(1);
 
@@ -151,6 +160,21 @@ class Zoom {
 
             this.driver.close();
         }
+    }
+
+    async clickGotItButton() {
+        await sleep(3000);
+
+        let buttonsMatchingClass = await this.driver.findElements(By.className("zm-btn zm-btn-legacy zm-btn--primary zm-btn__outline--blue"));
+
+        for (let i = 0; i < buttonsMatchingClass.length; i++) {
+            let innerText = await buttonsMatchingClass[i].getText();
+            if (innerText === "Got it") {
+                await buttonsMatchingClass[i].click();
+                return;
+            }
+        }
+
     }
 
     async editName(name) {
@@ -259,10 +283,12 @@ class Zoom {
             }
         }
 
-        await sleep(0.4);
+        await sleep(1);
 
         await this.chatField.sendKeys(message);
         await this.chatField.sendKeys("\n");
+
+        await sleep(1);
     }
 
     async resetChatWindow() {
